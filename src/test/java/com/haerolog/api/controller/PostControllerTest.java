@@ -7,10 +7,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest // MockMvc 주입
 class PostControllerTest {
@@ -28,6 +27,19 @@ class PostControllerTest {
                 )
                 .andExpect(status().isOk())
                 .andExpect(content().string("Hello World"))
+                .andDo(print()); // summary 출력
+    }
+
+    @DisplayName("/posts 요청 시 title 값은 필수다.")
+    @Test
+    void test2() throws Exception {
+        // expected
+        mockMvc.perform(post("/posts")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"title\":  null, \"content\":  \"내용입니다.\"}")
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").value("타이틀을 입력해주세요."))
                 .andDo(print()); // summary 출력
     }
 
