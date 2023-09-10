@@ -1,6 +1,7 @@
 package com.haerolog.api.domain;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -20,7 +21,8 @@ public class Post {
     @Lob
     private String content;
 
-    public Post(String title, String content) {
+    @Builder
+    private Post(String title, String content) {
         this.title = title;
         this.content = content;
     }
