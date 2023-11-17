@@ -1,5 +1,14 @@
 package com.haerolog.api.controller;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.haerolog.api.domain.Post;
 import com.haerolog.api.repository.PostRepository;
@@ -11,12 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -68,7 +71,6 @@ class PostControllerTest {
 
         String json = objectMapper.writeValueAsString(request);
 
-
         // expected
         mockMvc.perform(post("/posts")
                         .contentType(APPLICATION_JSON)
@@ -106,6 +108,27 @@ class PostControllerTest {
         Post post = postRepository.findAll().get(0);
         assertThat(post.getTitle()).isEqualTo("제목입니다.");
         assertThat(post.getContent()).isEqualTo("내용입니다.");
+    }
+
+    @DisplayName("글 1개 조회")
+    @Test
+    void test4() throws Exception {
+        // given
+        Post post = Post.builder()
+                .title("foo")
+                .content("bar")
+                .build();
+
+        postRepository.save(post);
+
+        // expected
+        mockMvc.perform(get("/posts/{postId}", post.getId())
+                        .contentType(APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(post.getId()))
+                .andExpect(jsonPath("$.title").value("foo"))
+                .andExpect(jsonPath("$.content").value("bar"))
+                .andDo(print());
     }
 
 }
