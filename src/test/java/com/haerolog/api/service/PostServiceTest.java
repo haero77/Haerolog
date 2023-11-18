@@ -1,17 +1,18 @@
 package com.haerolog.api.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.haerolog.domain.Post;
 import com.haerolog.repository.PostRepository;
 import com.haerolog.request.PostCreate;
 import com.haerolog.response.PostResponse;
 import com.haerolog.service.PostService;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 class PostServiceTest {
@@ -64,6 +65,28 @@ class PostServiceTest {
         assertThat(response).isNotNull();
         assertThat(response.getTitle()).isEqualTo("1234567890");
         assertThat(response.getContent()).isEqualTo("content");
+    }
+
+    @DisplayName("글 여러 개 조회")
+    @Test
+    void test3() {
+        // given
+        Post post1 = Post.builder()
+                .title("foo1")
+                .content("bar1")
+                .build();
+
+        Post post2 = Post.builder()
+                .title("foo2")
+                .content("bar2")
+                .build();
+        postRepository.saveAll(List.of(post1, post2));
+
+        // when
+        List<PostResponse> result = postService.getList();
+
+        // then
+        assertThat(result).hasSize(2);
     }
 
 }

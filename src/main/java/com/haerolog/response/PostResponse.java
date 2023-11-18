@@ -1,5 +1,6 @@
 package com.haerolog.response;
 
+import com.haerolog.domain.Post;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -14,8 +15,12 @@ public class PostResponse {
     private final String title;
     private final String content;
 
+    public PostResponse(Post post) {
+        this(post.getId(), post.getTitle(), post.getContent());
+    }
+
     @Builder
-    public PostResponse(Long id, String title, String content) {
+    private PostResponse(Long id, String title, String content) {
         this.id = id;
         this.title = title.substring(0, Math.min(title.length(), 10));
         this.content = content;
