@@ -10,9 +10,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.haerolog.api.domain.Post;
-import com.haerolog.api.repository.PostRepository;
-import com.haerolog.api.request.PostCreate;
+import com.haerolog.domain.Post;
+import com.haerolog.repository.PostRepository;
+import com.haerolog.request.PostCreate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

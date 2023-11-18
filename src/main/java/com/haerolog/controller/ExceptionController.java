@@ -1,6 +1,6 @@
-package com.haerolog.api.controller;
+package com.haerolog.controller;
 
-import com.haerolog.api.response.ErrorResponse;
+import com.haerolog.response.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;

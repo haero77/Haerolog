@@ -1,6 +1,6 @@
-package com.haerolog.api.repository;
+package com.haerolog.repository;
 
-import com.haerolog.api.domain.Post;
+import com.haerolog.domain.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PostRepository extends JpaRepository<Post, Long> {

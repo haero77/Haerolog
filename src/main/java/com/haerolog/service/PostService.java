@@ -1,8 +1,8 @@
-package com.haerolog.api.service;
+package com.haerolog.service;
 
-import com.haerolog.api.domain.Post;
-import com.haerolog.api.repository.PostRepository;
-import com.haerolog.api.request.PostCreate;
+import com.haerolog.domain.Post;
+import com.haerolog.repository.PostRepository;
+import com.haerolog.request.PostCreate;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

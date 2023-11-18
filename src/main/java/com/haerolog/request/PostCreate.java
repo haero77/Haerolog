@@ -1,4 +1,4 @@
-package com.haerolog.api.request;
+package com.haerolog.request;
 
 import lombok.*;
 

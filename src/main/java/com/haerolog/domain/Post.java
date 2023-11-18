@@ -1,4 +1,4 @@
-package com.haerolog.api.domain;
+package com.haerolog.domain;
 
 import lombok.AccessLevel;
 import lombok.Builder;

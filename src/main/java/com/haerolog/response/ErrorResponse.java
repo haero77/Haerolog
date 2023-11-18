@@ -1,4 +1,4 @@
-package com.haerolog.api.response;
+package com.haerolog.response;
 
 import lombok.Builder;
 import lombok.Getter;

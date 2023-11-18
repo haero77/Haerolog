@@ -1,8 +1,9 @@
 package com.haerolog.api.service;
 
-import com.haerolog.api.domain.Post;
-import com.haerolog.api.repository.PostRepository;
-import com.haerolog.api.request.PostCreate;
+import com.haerolog.domain.Post;
+import com.haerolog.repository.PostRepository;
+import com.haerolog.request.PostCreate;
+import com.haerolog.service.PostService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
