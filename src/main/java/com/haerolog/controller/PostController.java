@@ -1,7 +1,7 @@
 package com.haerolog.controller;
 
-import com.haerolog.domain.Post;
 import com.haerolog.request.PostCreate;
+import com.haerolog.response.PostResponse;
 import com.haerolog.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +23,7 @@ public class PostController {
     }
 
     @GetMapping("/{postId}")
-    public Post get(@PathVariable(name = "postId") Long id) {
+    public PostResponse get(@PathVariable(name = "postId") Long id) {
         return postService.get(id);
     }
 

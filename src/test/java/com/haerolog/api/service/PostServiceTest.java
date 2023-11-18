@@ -3,6 +3,7 @@ package com.haerolog.api.service;
 import com.haerolog.domain.Post;
 import com.haerolog.repository.PostRepository;
 import com.haerolog.request.PostCreate;
+import com.haerolog.response.PostResponse;
 import com.haerolog.service.PostService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -51,18 +52,18 @@ class PostServiceTest {
     void test2() {
         // given
         Post requestPost = Post.builder()
-                .title("title")
+                .title("123456789012345")
                 .content("content")
                 .build();
         postRepository.save(requestPost);
 
         // when
-        Post post = postService.get(requestPost.getId());
+        PostResponse response = postService.get(requestPost.getId());
 
         // then
-        assertThat(post).isNotNull();
-        assertThat(post.getTitle()).isEqualTo("title");
-        assertThat(post.getContent()).isEqualTo("content");
+        assertThat(response).isNotNull();
+        assertThat(response.getTitle()).isEqualTo("1234567890");
+        assertThat(response.getContent()).isEqualTo("content");
     }
 
 }
