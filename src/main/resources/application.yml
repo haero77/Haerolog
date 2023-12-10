@@ -8,6 +8,11 @@ spring:
       enabled: true
       path: /h2-console
 
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true # 웹 요청이 1로 왔을 때 0으로 보정
+
   datasource:
     url: jdbc:h2:mem:haerolog
     username: sa

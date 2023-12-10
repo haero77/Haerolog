@@ -2,3 +2,8 @@ spring:
   output:
     ansi:
       enabled: always
+
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true # page 0이 아닌 1 부터 시작

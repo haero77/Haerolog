@@ -8,6 +8,9 @@ import com.haerolog.request.PostCreate;
 import com.haerolog.response.PostResponse;
 import com.haerolog.service.PostService;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -67,26 +70,30 @@ class PostServiceTest {
         assertThat(response.getContent()).isEqualTo("content");
     }
 
-    @DisplayName("글 여러 개 조회")
+    @DisplayName("글 1페이지 조회")
     @Test
     void test3() {
         // given
-        Post post1 = Post.builder()
-                .title("foo1")
-                .content("bar1")
-                .build();
+        List<Post> requestPosts = IntStream.rangeClosed(1, 30) // for int i = 1 to 30
+                .mapToObj(i -> {
+                    return Post.builder()
+                            .title("제목" + i)
+                            .content("컨텐츠" + i)
+                            .build();
+                })
+                .collect(Collectors.toList());
 
-        Post post2 = Post.builder()
-                .title("foo2")
-                .content("bar2")
-                .build();
-        postRepository.saveAll(List.of(post1, post2));
+        postRepository.saveAll(requestPosts);
 
         // when
-        List<PostResponse> result = postService.getList();
+        List<PostResponse> actual = postService.getList(0);
 
         // then
-        assertThat(result).hasSize(2);
+        Assertions.assertAll(
+                () -> assertThat(actual).hasSize(5),
+                () -> assertThat(actual.get(0).getTitle()).isEqualTo("제목30"),
+                () -> assertThat(actual.get(4).getTitle()).isEqualTo("제목26")
+        );
     }
 
 }
