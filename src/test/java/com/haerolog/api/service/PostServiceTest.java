@@ -16,6 +16,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 
 @SpringBootTest
 class PostServiceTest {
@@ -82,11 +85,12 @@ class PostServiceTest {
                             .build();
                 })
                 .collect(Collectors.toList());
-
         postRepository.saveAll(requestPosts);
 
+        Pageable pageable = PageRequest.of(0, 5, Direction.DESC, "id");
+
         // when
-        List<PostResponse> actual = postService.getList(0);
+        List<PostResponse> actual = postService.getList(pageable);
 
         // then
         Assertions.assertAll(

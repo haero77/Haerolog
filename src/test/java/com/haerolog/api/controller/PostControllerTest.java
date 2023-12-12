@@ -15,6 +15,8 @@ import com.haerolog.domain.Post;
 import com.haerolog.repository.PostRepository;
 import com.haerolog.request.PostCreate;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -137,28 +139,21 @@ class PostControllerTest {
     @Test
     void test5() throws Exception {
         // given
-        Post post1 = Post.builder()
-                .title("title1")
-                .content("content1")
-                .build();
-
-        Post post2 = Post.builder()
-                .title("title2")
-                .content("content2")
-                .build();
-        postRepository.saveAll(List.of(post1, post2));
+        List<Post> requestPosts = IntStream.rangeClosed(1, 30) // for int i = 1 to 30
+                .mapToObj(i -> Post.builder()
+                        .title("제목" + i)
+                        .content("컨텐츠" + i)
+                        .build())
+                .collect(Collectors.toList());
+        postRepository.saveAll(requestPosts);
 
         // expected
-        mockMvc.perform(get("/posts")
+        mockMvc.perform(get("/posts?page=0&size=5&sort=id,desc")
                         .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.length()", is(2)))
-                .andExpect(jsonPath("$[0].id").value(post1.getId()))
-                .andExpect(jsonPath("$[0].title").value("title1"))
-                .andExpect(jsonPath("$[0].content").value("content1"))
-                .andExpect(jsonPath("$[1].id").value(post2.getId()))
-                .andExpect(jsonPath("$[1].title").value("title2"))
-                .andExpect(jsonPath("$[1].content").value("content2"))
+                .andExpect(jsonPath("$.length()", is(5)))
+                .andExpect(jsonPath("[0].id").value(30))
+                .andExpect(jsonPath("[4].id").value(26))
                 .andDo(print());
     }
 

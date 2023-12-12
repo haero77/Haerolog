@@ -12,6 +12,7 @@ spring:
     web:
       pageable:
         one-indexed-parameters: true # 웹 요청이 1로 왔을 때 0으로 보정
+        default-page-size: 5
 
   datasource:
     url: jdbc:h2:mem:haerolog
