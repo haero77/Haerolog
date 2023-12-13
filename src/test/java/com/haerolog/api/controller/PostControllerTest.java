@@ -40,7 +40,7 @@ class PostControllerTest {
 
     @BeforeEach
     void clean() {
-        postRepository.deleteAll();
+        postRepository.deleteAllInBatch();
     }
 
     @DisplayName("/posts 요청 시 'Hello World' 를 출력한다.")
@@ -135,6 +135,10 @@ class PostControllerTest {
                 .andDo(print());
     }
 
+    /**
+     * fixme 단독 실행 시 테스트 성공하지만, 여러 개 실행시 실패
+     * (JPA) id 가 1로 제대로 초기화되지 않는 문제가 있다.
+     */
     @DisplayName("글 여러 개 조회")
     @Test
     void test5() throws Exception {
