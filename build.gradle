@@ -44,6 +44,9 @@ dependencies {
     // lombok
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+
+    // p6spy
+    implementation 'p6spy:p6spy:3.9.1'
 }
 
 /** clean 태스크 실행시 QClass 삭제 */
