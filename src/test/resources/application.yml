@@ -1,4 +1,10 @@
 spring:
+  profiles:
+    active: test
+
+---
+
+spring:
   config:
     activate:
       on-profile: test
@@ -13,6 +19,8 @@ spring:
         one-indexed-parameters: true # page 0이 아닌 1 부터 시작
 
   jpa:
+    hibernate:
+      ddl-auto: create
     show-sql: false
     properties:
       hibernate:
