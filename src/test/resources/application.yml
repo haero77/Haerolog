@@ -24,7 +24,7 @@ spring:
     show-sql: false
     properties:
       hibernate:
-        format_sql: true
+        format_sql: false
 
   datasource:
     driver-class-name: org.h2.Driver
@@ -33,9 +33,16 @@ spring:
     password:
 
 
-logging:
-  level:
-    org:
-      hibernate:
-        SQL: debug
-        type.descriptor.sql.BasicBinder: trace
+#logging:
+#  level:
+#    org:
+#      hibernate:
+#        SQL: debug
+#        type.descriptor.sql.BasicBinder: trace
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
+#      multiline: true
+      logging: slf4j
