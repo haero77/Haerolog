@@ -1,10 +1,10 @@
-package com.haerolog.common;
+package com.haerolog.common.support;
 
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-@ActiveProfiles(value = "test")
+@ActiveProfiles("test")
 @SpringBootTest
-public abstract class IntegrationTest {
+public abstract class IntegrationTestSupport {
 
 }

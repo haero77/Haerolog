@@ -2,9 +2,11 @@ package com.haerolog.api.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.haerolog.common.support.IntegrationTestSupport;
 import com.haerolog.domain.Post;
 import com.haerolog.repository.PostRepository;
 import com.haerolog.request.PostCreate;
+import com.haerolog.request.PostSearch;
 import com.haerolog.response.PostResponse;
 import com.haerolog.service.PostService;
 import java.util.List;
@@ -16,12 +18,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort.Direction;
 
 @SpringBootTest
-class PostServiceTest {
+class PostServiceTest extends IntegrationTestSupport {
 
     @Autowired
     private PostService postService;
@@ -73,30 +72,27 @@ class PostServiceTest {
         assertThat(response.getContent()).isEqualTo("content");
     }
 
-    @DisplayName("글 1페이지 조회")
+    @DisplayName("글 여러개 조회")
     @Test
-    void test3() {
-        // given
-        List<Post> requestPosts = IntStream.rangeClosed(1, 30) // for int i = 1 to 30
-                .mapToObj(i -> {
-                    return Post.builder()
-                            .title("제목" + i)
-                            .content("컨텐츠" + i)
-                            .build();
-                })
+    void getList() {
+        List<Post> posts = IntStream.rangeClosed(1, 20) // for int i = 1 to 20
+                .mapToObj(i -> Post.builder()
+                        .title("제목" + i)
+                        .content("컨텐츠" + i)
+                        .build())
                 .collect(Collectors.toList());
-        postRepository.saveAll(requestPosts);
+        postRepository.saveAll(posts);
 
-        Pageable pageable = PageRequest.of(0, 5, Direction.DESC, "id");
+        PostSearch postSearch = PostSearch.builder()
+                .page(1)
+                .build();
 
-        // when
-        List<PostResponse> actual = postService.getList(pageable);
+        List<PostResponse> actual = postService.getList(postSearch);
 
-        // then
         Assertions.assertAll(
-                () -> assertThat(actual).hasSize(5),
-                () -> assertThat(actual.get(0).getTitle()).isEqualTo("제목30"),
-                () -> assertThat(actual.get(4).getTitle()).isEqualTo("제목26")
+                () -> assertThat(actual).hasSize(20),
+                () -> assertThat(actual.get(0).getTitle()).isEqualTo("제목20"),
+                () -> assertThat(actual.get(9).getTitle()).isEqualTo("제목11")
         );
     }
 

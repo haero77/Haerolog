@@ -1,7 +1,9 @@
 package com.haerolog.repository;
 
+import static com.haerolog.domain.QPost.post;
+
 import com.haerolog.domain.Post;
-import com.haerolog.domain.QPost;
+import com.haerolog.request.PostSearch;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -9,16 +11,17 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class PostRepositoryImpl implements PostRepositoryCustom{
+public class PostRepositoryCustomImpl implements PostRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<Post> getList(int page) {
+    public List<Post> getList(PostSearch postSearch) {
         return queryFactory
-                .selectFrom(QPost.post)
-                .limit(10)
-                .offset((page - 1) * 10L) // 3 페이지면 앞에 20개를 건너띄고 그 다음 10개를 가져온다.
+                .selectFrom(post)
+                .limit(postSearch.getSize())
+                .offset(postSearch.getOffset())
+                .orderBy(post.id.desc())
                 .fetch();
     }
 

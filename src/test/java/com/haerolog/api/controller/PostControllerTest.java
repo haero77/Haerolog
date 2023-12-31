@@ -11,6 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.haerolog.common.support.IntegrationTestSupport;
 import com.haerolog.domain.Post;
 import com.haerolog.repository.PostRepository;
 import com.haerolog.request.PostCreate;
@@ -22,12 +23,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
 @AutoConfigureMockMvc
-@SpringBootTest
-class PostControllerTest {
+class PostControllerTest extends IntegrationTestSupport {
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -64,10 +63,9 @@ class PostControllerTest {
                 .andDo(print()); // summary 출력
     }
 
-    @DisplayName("/posts 요청 시 title 값은 필수다.")
+    @DisplayName("POST /posts 요청 시 title 값은 필수다.")
     @Test
     void test2() throws Exception {
-        // given
         PostCreate request = PostCreate.builder()
                 .title(null)
                 .content("내용입니다.")
@@ -75,7 +73,6 @@ class PostControllerTest {
 
         String json = objectMapper.writeValueAsString(request);
 
-        // expected
         mockMvc.perform(post("/posts")
                         .contentType(APPLICATION_JSON)
                         .content(json)
@@ -143,7 +140,7 @@ class PostControllerTest {
     @Test
     void test5() throws Exception {
         // given
-        List<Post> requestPosts = IntStream.rangeClosed(1, 30) // for int i = 1 to 30
+        List<Post> requestPosts = IntStream.rangeClosed(1, 20)
                 .mapToObj(i -> Post.builder()
                         .title("제목" + i)
                         .content("컨텐츠" + i)
@@ -152,13 +149,12 @@ class PostControllerTest {
         postRepository.saveAll(requestPosts);
 
         // expected
-        mockMvc.perform(get("/posts?page=0&size=5&sort=id,desc")
-                        .contentType(APPLICATION_JSON))
+        mockMvc.perform(get("/posts?page=1&size=10"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.length()", is(5)))
-                .andExpect(jsonPath("[0].id").value(30))
-                .andExpect(jsonPath("[4].id").value(26))
+                .andExpect(jsonPath("$.length()", is(10)))
+                .andExpect(jsonPath("[0].id").value(requestPosts.get(19).getId()))
+                .andExpect(jsonPath("[9].id").value(requestPosts.get(10).getId()))
                 .andDo(print());
     }
-
+    
 }

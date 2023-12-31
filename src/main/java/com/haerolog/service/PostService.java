@@ -3,12 +3,12 @@ package com.haerolog.service;
 import com.haerolog.domain.Post;
 import com.haerolog.repository.PostRepository;
 import com.haerolog.request.PostCreate;
+import com.haerolog.request.PostSearch;
 import com.haerolog.response.PostResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -36,11 +36,10 @@ public class PostService {
                 .title(post.getTitle())
                 .content(post.getContent())
                 .build();
-
     }
 
-    public List<PostResponse> getList(Pageable pageable) {
-        return postRepository.findAll(pageable)
+    public List<PostResponse> getList(PostSearch postSearch) {
+        return postRepository.getList(postSearch)
                 .stream()
                 .map(PostResponse::new)
                 .collect(Collectors.toList());
