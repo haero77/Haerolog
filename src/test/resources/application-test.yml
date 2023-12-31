@@ -1,10 +1,4 @@
 spring:
-  profiles:
-    active: test
-
----
-
-spring:
   config:
     activate:
       on-profile: test
@@ -24,7 +18,7 @@ spring:
     show-sql: false
     properties:
       hibernate:
-        format_sql: false
+        format_sql: true
 
   datasource:
     driver-class-name: org.h2.Driver
@@ -33,16 +27,16 @@ spring:
     password:
 
 
-#logging:
-#  level:
-#    org:
-#      hibernate:
-#        SQL: debug
-#        type.descriptor.sql.BasicBinder: trace
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+        type.descriptor.sql.BasicBinder: trace
 
 decorator:
   datasource:
     p6spy:
-      enable-logging: true
+      enable-logging: false
 #      multiline: true
       logging: slf4j

@@ -1,0 +1,43 @@
+spring:
+  output:
+    ansi:
+      enabled: always
+
+  datasource:
+    url: jdbc:h2:mem:haerolog
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  data:
+    web:
+      pageable:
+#        one-indexed-parameters: true # 웹 요청이 1로 왔을 때 0으로 보정
+        default-page-size: 5
+
+logging:
+  level:
+    org:
+      hibernate:
+#        SQL: debug
+#        type.descriptor.sql.BasicBinder: trace
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
+      #      multiline: true
+      logging: slf4j
