@@ -1,6 +1,6 @@
 package com.haerolog.domain.post.repository;
 
-import com.haerolog.domain.Post;
+import com.haerolog.domain.post.domain.Post;
 import com.haerolog.domain.post.service.request.PostSearch;
 import java.util.List;
 

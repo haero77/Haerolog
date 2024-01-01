@@ -1,7 +1,7 @@
 package com.haerolog.domain.post.service;
 
-import com.haerolog.domain.Post;
-import com.haerolog.domain.PostEditor;
+import com.haerolog.domain.post.domain.Post;
+import com.haerolog.domain.post.domain.PostEditor;
 import com.haerolog.domain.post.repository.PostRepository;
 import com.haerolog.domain.post.service.request.PostCreate;
 import com.haerolog.domain.post.service.request.PostEdit;

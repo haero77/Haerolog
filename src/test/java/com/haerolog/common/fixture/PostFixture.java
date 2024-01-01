@@ -1,6 +1,6 @@
 package com.haerolog.common.fixture;
 
-import com.haerolog.domain.Post;
+import com.haerolog.domain.post.domain.Post;
 
 public class PostFixture {
 

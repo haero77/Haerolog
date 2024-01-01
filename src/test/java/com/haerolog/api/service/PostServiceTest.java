@@ -3,7 +3,7 @@ package com.haerolog.api.service;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.haerolog.common.support.IntegrationTestSupport;
-import com.haerolog.domain.Post;
+import com.haerolog.domain.post.domain.Post;
 import com.haerolog.domain.post.repository.PostRepository;
 import com.haerolog.domain.post.service.PostService;
 import com.haerolog.domain.post.service.request.PostCreate;

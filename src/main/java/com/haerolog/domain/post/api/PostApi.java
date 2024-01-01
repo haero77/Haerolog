@@ -1,4 +1,4 @@
-package com.haerolog.domain.post.controller;
+package com.haerolog.domain.post.api;
 
 import com.haerolog.domain.post.service.PostService;
 import com.haerolog.domain.post.service.request.PostCreate;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-public class PostController {
+public class PostApi {
 
     private final PostService postService;
 

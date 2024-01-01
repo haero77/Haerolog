@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.haerolog.common.support.IntegrationTestSupport;
-import com.haerolog.domain.Post;
+import com.haerolog.domain.post.domain.Post;
 import com.haerolog.domain.post.repository.PostRepository;
 import com.haerolog.domain.post.service.request.PostCreate;
 import java.util.List;
@@ -26,7 +26,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.test.web.servlet.MockMvc;
 
 @AutoConfigureMockMvc
-class PostControllerTest extends IntegrationTestSupport {
+class PostApiTest extends IntegrationTestSupport {
 
     @Autowired
     private ObjectMapper objectMapper;

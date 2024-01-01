@@ -1,4 +1,4 @@
-package com.haerolog.domain;
+package com.haerolog.domain.post.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

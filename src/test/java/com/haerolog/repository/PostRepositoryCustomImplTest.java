@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 import com.haerolog.common.fixture.PostFixture;
 import com.haerolog.common.support.IntegrationTestSupport;
-import com.haerolog.domain.Post;
+import com.haerolog.domain.post.domain.Post;
 import com.haerolog.domain.post.repository.PostRepository;
 import com.haerolog.domain.post.service.request.PostSearch;
 import java.util.List;
