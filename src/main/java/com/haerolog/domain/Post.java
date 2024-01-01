@@ -30,13 +30,15 @@ public class Post {
         this.content = content;
     }
 
-    @Override
-    public String toString() {
-        return "Post{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                '}';
+    public PostEditor.PostEditorBuilder toEditor() {
+        return PostEditor.builder()
+                .title(this.title)
+                .content(this.content);
+    }
+
+    public void edit(PostEditor editor) {
+        this.title = editor.getTitle();
+        this.content = editor.getContent();
     }
 
 }

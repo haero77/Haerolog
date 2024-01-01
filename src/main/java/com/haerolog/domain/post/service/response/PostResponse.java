@@ -1,4 +1,4 @@
-package com.haerolog.response;
+package com.haerolog.domain.post.service.response;
 
 import com.haerolog.domain.Post;
 import lombok.Builder;

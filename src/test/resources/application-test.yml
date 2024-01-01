@@ -32,11 +32,11 @@ logging:
     org:
       hibernate:
         SQL: debug
-        type.descriptor.sql.BasicBinder: trace
+#        type.descriptor.sql.BasicBinder: trace
 
 decorator:
   datasource:
     p6spy:
-      enable-logging: false
-#      multiline: true
+      enable-logging: true
       logging: slf4j
+      multiline: true

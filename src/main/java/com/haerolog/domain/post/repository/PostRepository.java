@@ -1,4 +1,4 @@
-package com.haerolog.repository;
+package com.haerolog.domain.post.repository;
 
 import com.haerolog.domain.Post;
 import org.springframework.data.jpa.repository.JpaRepository;

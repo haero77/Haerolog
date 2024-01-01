@@ -13,8 +13,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.haerolog.common.support.IntegrationTestSupport;
 import com.haerolog.domain.Post;
-import com.haerolog.repository.PostRepository;
-import com.haerolog.request.PostCreate;
+import com.haerolog.domain.post.repository.PostRepository;
+import com.haerolog.domain.post.service.request.PostCreate;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;

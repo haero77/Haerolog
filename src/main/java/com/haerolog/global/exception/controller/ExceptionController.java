@@ -1,6 +1,5 @@
-package com.haerolog.controller;
+package com.haerolog.global.exception.controller;
 
-import com.haerolog.response.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;

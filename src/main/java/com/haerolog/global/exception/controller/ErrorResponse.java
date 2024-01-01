@@ -1,4 +1,4 @@
-package com.haerolog.response;
+package com.haerolog.global.exception.controller;
 
 import java.util.List;
 import java.util.Map;

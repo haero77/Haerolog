@@ -1,15 +1,18 @@
-package com.haerolog.service;
+package com.haerolog.domain.post.service;
 
 import com.haerolog.domain.Post;
-import com.haerolog.repository.PostRepository;
-import com.haerolog.request.PostCreate;
-import com.haerolog.request.PostSearch;
-import com.haerolog.response.PostResponse;
+import com.haerolog.domain.PostEditor;
+import com.haerolog.domain.post.repository.PostRepository;
+import com.haerolog.domain.post.service.request.PostCreate;
+import com.haerolog.domain.post.service.request.PostEdit;
+import com.haerolog.domain.post.service.request.PostSearch;
+import com.haerolog.domain.post.service.response.PostResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
@@ -43,6 +46,21 @@ public class PostService {
                 .stream()
                 .map(PostResponse::new)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void edit(Long id, PostEdit postEdit) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 글입니다."));
+
+        PostEditor.PostEditorBuilder editorBuilder = post.toEditor();
+
+        PostEditor editor = editorBuilder
+                .title(postEdit.getTitle())
+                .content(postEdit.getContent())
+                .build();
+
+        post.edit(editor);
     }
 
 }

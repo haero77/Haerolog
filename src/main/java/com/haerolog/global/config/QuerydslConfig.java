@@ -1,4 +1,4 @@
-package com.haerolog.config;
+package com.haerolog.global.config;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import javax.persistence.EntityManager;

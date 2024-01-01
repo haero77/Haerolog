@@ -4,11 +4,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.haerolog.common.support.IntegrationTestSupport;
 import com.haerolog.domain.Post;
-import com.haerolog.repository.PostRepository;
-import com.haerolog.request.PostCreate;
-import com.haerolog.request.PostSearch;
-import com.haerolog.response.PostResponse;
-import com.haerolog.service.PostService;
+import com.haerolog.domain.post.repository.PostRepository;
+import com.haerolog.domain.post.service.PostService;
+import com.haerolog.domain.post.service.request.PostCreate;
+import com.haerolog.domain.post.service.request.PostSearch;
+import com.haerolog.domain.post.service.response.PostResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
