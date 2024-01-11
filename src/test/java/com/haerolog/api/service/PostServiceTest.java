@@ -152,4 +152,18 @@ class PostServiceTest extends IntegrationTestSupport {
         );
     }
 
+    @DisplayName("게시글 삭제")
+    @Test
+    void delete() {
+        Post post = Post.builder()
+                .title("title")
+                .content("content")
+                .build();
+        postRepository.save(post);
+
+        sut.delete(post.getId());
+
+        assertThat(postRepository.count()).isEqualTo(0);
+    }
+
 }
