@@ -1,18 +1,19 @@
 package com.haerolog.api.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 import com.haerolog.common.support.IntegrationTestSupport;
 import com.haerolog.domain.post.domain.Post;
 import com.haerolog.domain.post.repository.PostRepository;
 import com.haerolog.domain.post.service.PostService;
 import com.haerolog.domain.post.service.request.PostCreate;
+import com.haerolog.domain.post.service.request.PostEdit;
 import com.haerolog.domain.post.service.request.PostSearch;
 import com.haerolog.domain.post.service.response.PostResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 class PostServiceTest extends IntegrationTestSupport {
 
     @Autowired
-    private PostService postService;
+    private PostService sut;
 
     @Autowired
     private PostRepository postRepository;
@@ -43,7 +44,7 @@ class PostServiceTest extends IntegrationTestSupport {
                 .build();
 
         // when
-        postService.write(postCreate);
+        sut.write(postCreate);
 
         // then
         assertThat(postRepository.count()).isEqualTo(1);
@@ -64,7 +65,7 @@ class PostServiceTest extends IntegrationTestSupport {
         postRepository.save(requestPost);
 
         // when
-        PostResponse response = postService.get(requestPost.getId());
+        PostResponse response = sut.get(requestPost.getId());
 
         // then
         assertThat(response).isNotNull();
@@ -87,12 +88,67 @@ class PostServiceTest extends IntegrationTestSupport {
                 .page(1)
                 .build();
 
-        List<PostResponse> actual = postService.getList(postSearch);
+        List<PostResponse> actual = sut.getList(postSearch);
 
-        Assertions.assertAll(
+        assertAll(
                 () -> assertThat(actual).hasSize(20),
                 () -> assertThat(actual.get(0).getTitle()).isEqualTo("제목20"),
                 () -> assertThat(actual.get(9).getTitle()).isEqualTo("제목11")
+        );
+    }
+
+    @DisplayName("글 내용 수정")
+    @Test
+    void test5() {
+        // given
+        Post post = Post.builder()
+                .title("title")
+                .content("content")
+                .build();
+        postRepository.save(post);
+
+        PostEdit postEdit = PostEdit.builder()
+                .title("title")
+                .content("changed-content")
+                .build();
+
+        // when
+        sut.edit(post.getId(), postEdit);
+
+        // then
+        Post changedPost = postRepository.findById(post.getId())
+                .orElseThrow(() -> new RuntimeException("글이 존재하지 않습니다. id=" + post.getId()));
+
+        assertAll(
+                () -> assertThat(changedPost.getTitle()).isEqualTo("title"),
+                () -> assertThat(changedPost.getContent()).isEqualTo("changed-content")
+        );
+    }
+
+    @DisplayName("글 내용 수정 - 제목이 주어지지 않은 경우")
+    @Test
+    void post_edit_no_title() {
+        // given
+        Post post = Post.builder()
+                .title("title")
+                .content("content")
+                .build();
+        postRepository.save(post);
+
+        PostEdit postEdit = PostEdit.builder()
+                .content("changed-content")
+                .build();
+
+        // when
+        sut.edit(post.getId(), postEdit);
+
+        // then
+        Post changedPost = postRepository.findById(post.getId())
+                .orElseThrow(() -> new RuntimeException("글이 존재하지 않습니다. id=" + post.getId()));
+
+        assertAll(
+                () -> assertThat(changedPost.getTitle()).isEqualTo("title"),
+                () -> assertThat(changedPost.getContent()).isEqualTo("changed-content")
         );
     }
 

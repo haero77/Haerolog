@@ -2,6 +2,7 @@ package com.haerolog.domain.post.service;
 
 import com.haerolog.domain.post.domain.Post;
 import com.haerolog.domain.post.domain.PostEditor;
+import com.haerolog.domain.post.domain.PostEditor.PostEditorBuilder;
 import com.haerolog.domain.post.repository.PostRepository;
 import com.haerolog.domain.post.service.request.PostCreate;
 import com.haerolog.domain.post.service.request.PostEdit;
@@ -53,7 +54,7 @@ public class PostService {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 글입니다."));
 
-        PostEditor.PostEditorBuilder editorBuilder = post.toEditor();
+        PostEditorBuilder editorBuilder = post.toEditor();
 
         PostEditor editor = editorBuilder
                 .title(postEdit.getTitle())

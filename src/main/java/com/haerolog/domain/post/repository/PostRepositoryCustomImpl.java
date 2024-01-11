@@ -1,6 +1,6 @@
 package com.haerolog.domain.post.repository;
 
-import static com.haerolog.domain.QPost.post;
+import static com.haerolog.domain.post.domain.QPost.post;
 
 import com.haerolog.domain.post.domain.Post;
 import com.haerolog.domain.post.service.request.PostSearch;

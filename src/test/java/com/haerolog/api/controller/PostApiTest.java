@@ -156,5 +156,5 @@ class PostApiTest extends IntegrationTestSupport {
                 .andExpect(jsonPath("[9].id").value(requestPosts.get(10).getId()))
                 .andDo(print());
     }
-    
+
 }
