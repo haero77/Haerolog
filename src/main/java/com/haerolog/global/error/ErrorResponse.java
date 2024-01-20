@@ -1,5 +1,7 @@
 package com.haerolog.global.error;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -17,6 +19,7 @@ import org.springframework.validation.FieldError;
  * }
  */
 @Getter
+@JsonInclude(value = Include.NON_EMPTY)
 public class ErrorResponse {
 
     private final String code;
