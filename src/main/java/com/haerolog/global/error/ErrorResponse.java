@@ -19,7 +19,7 @@ import org.springframework.validation.FieldError;
  * }
  */
 @Getter
-@JsonInclude(value = Include.NON_EMPTY)
+//@JsonInclude(value = Include.NON_EMPTY) // 호돌맨: 비선호. 비어있는 것도 하나의 정보라고 판단할 수 있다.
 public class ErrorResponse {
 
     private final String code;
