@@ -1,12 +1,12 @@
 package com.haerolog.global.error;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.validation.FieldError;
 
 /**
@@ -22,7 +22,7 @@ import org.springframework.validation.FieldError;
 //@JsonInclude(value = Include.NON_EMPTY) // 호돌맨: 비선호. 비어있는 것도 하나의 정보라고 판단할 수 있다.
 public class ErrorResponse {
 
-    private final String code;
+    private final String code; // 향후를 대비해서 int가 아닌
     private final String message;
     private final Map<String, String> validation;
 
@@ -31,6 +31,14 @@ public class ErrorResponse {
         this.code = code;
         this.message = message;
         this.validation = validation;
+    }
+
+    public static ErrorResponse of(String code, String message) {
+        return ErrorResponse.builder()
+                .code(code)
+                .message(message)
+                .validation(new HashMap<>())
+                .build();
     }
 
     public static ErrorResponse badRequest(List<FieldError> fieldErrors) {
@@ -44,9 +52,13 @@ public class ErrorResponse {
     private static Map<String, String> toValidation(List<FieldError> fieldErrors) {
         return fieldErrors.stream()
                 .collect(Collectors.toMap(
-                        fieldError -> fieldError.getField(),
-                        fieldError -> fieldError.getDefaultMessage()
+                        FieldError::getField,
+                        DefaultMessageSourceResolvable::getDefaultMessage
                 ));
+    }
+
+    public void addValidation(String fieldName, String message) {
+        this.validation.put(fieldName, message);
     }
 
 }
