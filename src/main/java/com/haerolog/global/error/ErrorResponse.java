@@ -1,6 +1,5 @@
 package com.haerolog.global.error;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -33,14 +32,6 @@ public class ErrorResponse {
         this.validation = validation;
     }
 
-    public static ErrorResponse of(String code, String message) {
-        return ErrorResponse.builder()
-                .code(code)
-                .message(message)
-                .validation(new HashMap<>())
-                .build();
-    }
-
     public static ErrorResponse badRequest(List<FieldError> fieldErrors) {
         return ErrorResponse.builder()
                 .code("400")
@@ -55,10 +46,6 @@ public class ErrorResponse {
                         FieldError::getField,
                         DefaultMessageSourceResolvable::getDefaultMessage
                 ));
-    }
-
-    public void addValidation(String fieldName, String message) {
-        this.validation.put(fieldName, message);
     }
 
 }

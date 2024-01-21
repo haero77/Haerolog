@@ -1,7 +1,6 @@
 package com.haerolog.global.error;
 
 import com.haerolog.domain.post.exception.HaerologException;
-import com.haerolog.domain.post.exception.InvalidRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,14 +28,15 @@ public class ExceptionController {
 
 	@ExceptionHandler(HaerologException.class)
 	public ResponseEntity<ErrorResponse> handelHaerologException(HaerologException e) {
-		ErrorResponse response = ErrorResponse.of(String.valueOf(e.getStatusCode()), e.getMessage());
+		int statusCode = e.getStatusCode();
 
-		if (e instanceof InvalidRequest) { // if문이 계속 추가될 것 같기 때문에 나이스하진 않음.
-			InvalidRequest invalidRequest = (InvalidRequest) e;
-			response.addValidation(invalidRequest.getFieldName(), invalidRequest.getMessage());
-		}
+		ErrorResponse response = ErrorResponse.builder()
+				.code(String.valueOf(statusCode))
+				.message(e.getMessage())
+				.validation(e.getValidation())
+				.build();
 
-		return ResponseEntity.status(e.getStatusCode()).body(response);
+		return ResponseEntity.status(statusCode).body(response);
 	}
 
 }
