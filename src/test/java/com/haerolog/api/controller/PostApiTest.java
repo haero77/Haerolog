@@ -12,10 +12,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.haerolog.common.support.IntegrationTestSupport;
-import com.haerolog.domain.post.domain.Post;
+import com.haerolog.domain.post.application.domain.Post;
+import com.haerolog.domain.post.application.service.request.PostCreate;
 import com.haerolog.domain.post.repository.PostRepository;
-import com.haerolog.domain.post.service.request.PostCreate;
+import com.haerolog.support.IntegrationTestSupport;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
