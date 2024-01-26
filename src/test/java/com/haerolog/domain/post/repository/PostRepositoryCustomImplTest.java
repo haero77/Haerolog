@@ -1,19 +1,26 @@
 package com.haerolog.domain.post.repository;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
-
 import com.haerolog.domain.post.application.domain.Post;
 import com.haerolog.domain.post.application.service.request.PostSearch;
 import com.haerolog.support.IntegrationTestSupport;
-import java.util.List;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 class PostRepositoryCustomImplTest extends IntegrationTestSupport {
 
 	@Autowired
 	PostRepository sut;
+
+	@AfterEach
+	void afterEach() {
+		sut.deleteAllInBatch();
+	}
 
 	@Test
 	void getList() {
