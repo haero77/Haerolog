@@ -1,0 +1,15 @@
+= Haerolog API Docs
+:toc: // 헤더1 바로 밑에 있어야함
+
+== 글 단건 조회
+
+=== Request
+
+include::{snippets}/index/curl-request.adoc[]
+include::{snippets}/index/http-request.adoc[]
+include::{snippets}/index/request-body.adoc[]
+
+=== Response
+
+include::{snippets}/index/http-response.adoc[]
+include::{snippets}/index/response-body.adoc[]
