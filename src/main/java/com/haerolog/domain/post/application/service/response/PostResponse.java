@@ -1,6 +1,6 @@
-package com.haerolog.domain.post.service.response;
+package com.haerolog.domain.post.application.service.response;
 
-import com.haerolog.domain.post.domain.Post;
+import com.haerolog.domain.post.application.domain.Post;
 import lombok.Builder;
 import lombok.Getter;
 

@@ -1,4 +1,4 @@
-package com.haerolog.domain.post.exception;
+package com.haerolog.global.error.exception;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -7,17 +7,13 @@ import org.springframework.http.HttpStatus;
  * status -> 400
  */
 @Getter
-public class InvalidRequest extends HaerologException{
+public class InvalidRequestException extends HaerologException {
 
 	private static final String MESSAGE = "잘못된 요청입니다.";
 
-	private final String fieldName;
-	private final String message;
-
-	public InvalidRequest(String fieldName, String message1) {
+	public InvalidRequestException(String fieldName, String message) {
 		super(MESSAGE);
-		this.fieldName = fieldName;
-		this.message = message1;
+		super.addValidation(fieldName, message);
 	}
 
 	@Override

@@ -5,22 +5,17 @@ package com.haerolog.domain.post.exception;
  * (예외 타입 검증만으로도 검증이 충분하므로)
  */
 
-import org.springframework.http.HttpStatus;
+import com.haerolog.global.error.exception.NotFoundException;
 
 /**
  * status -> 404
  */
-public class PostNotFound extends HaerologException {
+public class PostNotFoundException extends NotFoundException {
 
 	public static final String MESSAGE = "존재하지 않는 글입니다.";
 
-	public PostNotFound() {
+	public PostNotFoundException() {
 		super(MESSAGE);
-	}
-
-	@Override
-	public int getStatusCode() {
-		return HttpStatus.NOT_FOUND.value();
 	}
 
 }

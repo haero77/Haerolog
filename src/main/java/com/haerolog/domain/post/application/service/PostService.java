@@ -1,13 +1,14 @@
-package com.haerolog.domain.post.service;
+package com.haerolog.domain.post.application.service;
 
-import com.haerolog.domain.post.domain.Post;
-import com.haerolog.domain.post.domain.PostEditor;
-import com.haerolog.domain.post.domain.PostEditor.PostEditorBuilder;
+import com.haerolog.domain.post.application.domain.Post;
+import com.haerolog.domain.post.application.domain.PostEditor;
+import com.haerolog.domain.post.application.domain.PostEditor.PostEditorBuilder;
+import com.haerolog.domain.post.application.service.request.PostAppend;
+import com.haerolog.domain.post.application.service.request.PostCreate;
+import com.haerolog.domain.post.application.service.request.PostEdit;
+import com.haerolog.domain.post.application.service.request.PostSearch;
+import com.haerolog.domain.post.application.service.response.PostResponse;
 import com.haerolog.domain.post.repository.PostRepository;
-import com.haerolog.domain.post.service.request.PostCreate;
-import com.haerolog.domain.post.service.request.PostEdit;
-import com.haerolog.domain.post.service.request.PostSearch;
-import com.haerolog.domain.post.service.response.PostResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class PostService {
+
+    private final PostAppender appender;
+    private final PostReader reader;
+    private final PostRemover remover;
+
+    public void append(PostAppend append) {
+        appender.append(append);
+    }
+
+    public void remove(long postId) {
+        remover.remove(postId);
+    }
 
     private final PostRepository postRepository;
 

@@ -1,7 +1,7 @@
 package com.haerolog.domain.post.repository;
 
-import com.haerolog.domain.post.domain.Post;
-import com.haerolog.domain.post.service.request.PostSearch;
+import com.haerolog.domain.post.application.domain.Post;
+import com.haerolog.domain.post.application.service.request.PostSearch;
 import java.util.List;
 
 public interface PostRepositoryCustom {

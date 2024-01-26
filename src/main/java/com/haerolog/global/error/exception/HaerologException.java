@@ -1,4 +1,4 @@
-package com.haerolog.domain.post.exception;
+package com.haerolog.global.error.exception;
 
 import java.util.HashMap;
 import java.util.Map;

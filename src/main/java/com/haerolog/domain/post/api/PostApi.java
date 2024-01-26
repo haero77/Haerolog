@@ -1,9 +1,9 @@
 package com.haerolog.domain.post.api;
 
-import com.haerolog.domain.post.service.PostService;
-import com.haerolog.domain.post.service.request.PostCreate;
-import com.haerolog.domain.post.service.request.PostSearch;
-import com.haerolog.domain.post.service.response.PostResponse;
+import com.haerolog.domain.post.application.service.PostService;
+import com.haerolog.domain.post.application.service.request.PostCreate;
+import com.haerolog.domain.post.application.service.request.PostSearch;
+import com.haerolog.domain.post.application.service.response.PostResponse;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.haerolog.domain.post.service.request;
+package com.haerolog.domain.post.application.service.request;
 
 import javax.validation.constraints.NotBlank;
 import lombok.Builder;

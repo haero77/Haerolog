@@ -1,6 +1,6 @@
 package com.haerolog.global.error;
 
-import com.haerolog.domain.post.exception.HaerologException;
+import com.haerolog.global.error.exception.HaerologException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

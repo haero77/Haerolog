@@ -1,4 +1,4 @@
-package com.haerolog.domain.post.service.request;
+package com.haerolog.domain.post.application.service.request;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;

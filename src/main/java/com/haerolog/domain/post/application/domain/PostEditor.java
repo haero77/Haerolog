@@ -1,4 +1,4 @@
-package com.haerolog.domain.post.domain;
+package com.haerolog.domain.post.application.domain;
 
 import lombok.Getter;
 
