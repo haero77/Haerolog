@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '2.7.13'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id "org.asciidoctor.jvm.convert" version "3.3.2"
 }
 
 group = 'com.haerolog'
@@ -11,10 +12,16 @@ java {
     sourceCompatibility = '11'
 }
 
+ext {
+    snippetsDir = file('build/generated-snippets') // Configure a snippetsDir property that defines the output location for generated snippets.
+}
+
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
+
+    asciidoctorExt
 }
 
 repositories {
@@ -47,6 +54,10 @@ dependencies {
 
     // p6spy
     implementation "com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.1"
+
+    // REST Docs
+    asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 }
 
 /** clean 태스크 실행시 QClass 삭제 */
@@ -57,4 +68,18 @@ clean {
 
 test {
     useJUnitPlatform()
+    outputs.dir snippetsDir // Make Gradle aware that running the test task will write output to the snippetsDir. This is required for incremental builds.
+}
+
+asciidoctor { // Configure the asciidoctor task.
+    inputs.dir snippetsDir // Make Gradle aware that running the task will read input from the snippetsDir. This is required for incremental builds.
+    configurations 'asciidoctorExt' // Configure the use of the asciidoctorExt configuration for extensions.
+    dependsOn test // Make the task depend on the test task so that the tests are run before the documentation is created.
+}
+
+bootJar {
+    dependsOn asciidoctor
+    from ("${asciidoctor.outputDir}/html5") { // 생성된 문서를 jar static/docs디렉터리에 복사
+        into 'static/docs'
+    }
 }
