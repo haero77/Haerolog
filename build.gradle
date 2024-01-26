@@ -14,6 +14,7 @@ java {
 
 ext {
     snippetsDir = file('build/generated-snippets') // Configure a snippetsDir property that defines the output location for generated snippets.
+    htmlDocsDir = "src/main/resources/static/docs"
 }
 
 configurations {
@@ -77,16 +78,15 @@ asciidoctor { // Configure the asciidoctor task.
     dependsOn test // Make the task depend on the test task so that the tests are run before the documentation is created.
 }
 
+asciidoctor.doFirst {
+    delete file("${htmlDocsDir}")
+}
+
 bootJar {
     dependsOn asciidoctor
 
     copy {
         from asciidoctor.outputDir
-        into "src/main/resources/static/docs"
+        into "${htmlDocsDir}"
     }
-
-//    from ("${asciidoctor.outputDir}/index.html") { // 생성된 문서를 jar static/docs디렉터리에 복사
-//        println(">>>> + ${asciidoctor.outputDir}")
-//        into 'static/docs'
-//    }
 }
