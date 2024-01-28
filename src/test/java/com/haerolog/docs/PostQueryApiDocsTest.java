@@ -23,7 +23,7 @@ class PostQueryApiDocsTest extends RestDocsSupport {
 		super.postRepository.deleteAllInBatch();
 	}
 
-	@DisplayName("docs test")
+	@DisplayName("글 단건 조회")
 	@Test
 	void test1() throws Exception {
 		Post post = Post.builder()
