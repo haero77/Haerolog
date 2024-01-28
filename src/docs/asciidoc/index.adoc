@@ -1,15 +1,33 @@
 = Haerolog API Docs
-:toc: // 헤더1 바로 밑에 있어야함
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
 
-== 글 단건 조회
+== 게시글
 
-=== Request
+=== 게시글 생성
 
-include::{snippets}/index/http-request.adoc[]
-include::{snippets}/index/path-parameters.adoc[]
+==== Request
 
-=== Response
+include::{snippets}/post-append/http-request.adoc[]
+include::{snippets}/post-append/request-fields.adoc[]
 
-include::{snippets}/index/http-response.adoc[]
+==== Response
 
-include::{snippets}/index/response-body.adoc[]
+include::{snippets}/post-append/http-response.adoc[]
+
+
+=== 글 단건 조회
+
+==== Request
+
+include::{snippets}/post-inquiry-single/http-request.adoc[]
+include::{snippets}/post-inquiry-single/path-parameters.adoc[]
+
+==== Response
+
+include::{snippets}/post-inquiry-single/http-response.adoc[]
+include::{snippets}/post-inquiry-single/response-fields.adoc[]
