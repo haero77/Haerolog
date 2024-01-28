@@ -33,17 +33,19 @@ class PostQueryApiDocsTest extends RestDocsSupport {
 		postRepository.save(post);
 
 		// expected
-		super.mockMvc.perform(get("/posts/{postId}", post.getId()).accept(APPLICATION_JSON))
+		super.mockMvc.perform(get("/api/v1/posts/{postId}", post.getId())
+						.contentType(APPLICATION_JSON)
+						.accept(APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.content").value("content"))
-				.andDo(document("index",
+				.andDo(document("post-inquiry-single",
 						pathParameters(
 								parameterWithName("postId").description("게시글 ID")
 						),
 						responseFields(
 								fieldWithPath("id").description("게시글 ID"),
-								fieldWithPath("title").description("게시글 제목"),
-								fieldWithPath("content").description("게시글 내용")
+								fieldWithPath("title").description("제목"),
+								fieldWithPath("content").description("내용")
 						))
 				);
 	}

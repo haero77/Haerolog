@@ -15,7 +15,7 @@ public class PostQueryApi {
 
 	private final PostQueryService queryService;
 
-	@GetMapping("/posts/{postId}")
+	@GetMapping("/{postId}")
 	public PostResponse get(@PathVariable(name = "postId") long id) {
 		return queryService.get(id);
 	}
