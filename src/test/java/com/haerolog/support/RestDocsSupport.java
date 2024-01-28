@@ -1,5 +1,6 @@
 package com.haerolog.support;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.haerolog.domain.post.repository.PostRepository;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class RestDocsSupport {
 
 	@Autowired
 	protected MockMvc mockMvc;
+
+	@Autowired
+	protected ObjectMapper objectMapper;
 
 	@Autowired
 	protected PostRepository postRepository;

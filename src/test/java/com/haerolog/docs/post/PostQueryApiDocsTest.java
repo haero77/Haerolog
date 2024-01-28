@@ -1,4 +1,4 @@
-package com.haerolog.docs;
+package com.haerolog.docs.post;
 
 import com.haerolog.domain.post.application.domain.Post;
 import com.haerolog.support.RestDocsSupport;
