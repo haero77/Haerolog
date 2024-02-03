@@ -28,6 +28,8 @@ public class ExceptionController {
 
 	@ExceptionHandler(HaerologException.class)
 	public ResponseEntity<ErrorResponse> handelHaerologException(HaerologException e) {
+		log.info(e.getMessage(), e);
+
 		int statusCode = e.getStatusCode();
 
 		ErrorResponse response = ErrorResponse.builder()
