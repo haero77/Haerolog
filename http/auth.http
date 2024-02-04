@@ -1,5 +1,7 @@
 ###
-GET http://localhost:8080/foo?accessToken=123
+GET {{host}}/foo
+Content-Type: application/json
+Authorization: 123
 
 ###
 GET http://localhost:8080/bar?acc=1

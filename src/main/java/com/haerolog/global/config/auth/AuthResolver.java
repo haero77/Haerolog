@@ -27,13 +27,15 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
 			NativeWebRequest webRequest,
 			WebDataBinderFactory binderFactory
 	) throws Exception {
-		String accessToken = webRequest.getParameter("accessToken");
+		String accessToken = webRequest.getHeader("Authorization");
 
 		if (Objects.isNull(accessToken) || accessToken.equals("")) {
 			throw new Unauthorized();
 		}
 
-		return new UserSession(accessToken);
+		// todo 데이터베이스 사용자 확인 작업
+
+		return new UserSession(1L);
 	}
 
 }

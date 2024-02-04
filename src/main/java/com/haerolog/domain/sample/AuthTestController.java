@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthTestController {
 
 	@GetMapping("/foo")
-	public String foo(UserSession userSession) {
-		log.info(">>> userName={}", userSession.getName());
-		return userSession.getName();
+	public Long foo(UserSession userSession) {
+		log.info(">>> userName={}", userSession.getId());
+		return userSession.getId();
 	}
 
 	@GetMapping("/bar")

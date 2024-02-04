@@ -8,10 +8,10 @@ import lombok.Getter;
 @Getter
 public class UserSession {
 
-	private final String name;
+	private final Long id;
 
-	public UserSession(String name) {
-		this.name = name;
+	public UserSession(Long id) {
+		this.id = id;
 	}
 
 }
