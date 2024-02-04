@@ -15,6 +15,7 @@ java {
 ext {
     snippetsDir = file('build/generated-snippets') // Configure a snippetsDir property that defines the output location for generated snippets.
     htmlDocsDir = "src/main/resources/static/docs"
+    templateDocsir = "src/main/resources/templates/docs"
 }
 
 configurations {
@@ -34,6 +35,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // Thymeleaf
+    implementation 'org.thymeleaf:thymeleaf:3.1.2.RELEASE'
 
     // querydsl https://honeymon.io/tech/2020/07/09/gradle-annotation-processor-with-querydsl.html
     implementation "com.querydsl:querydsl-core"
@@ -89,6 +93,10 @@ asciidoctor.doLast {
     copy {
         from asciidoctor.outputDir
         into "${htmlDocsDir}"
+    }
+    copy {
+        from asciidoctor.outputDir
+        into "${templateDocsir}"
     }
 }
 

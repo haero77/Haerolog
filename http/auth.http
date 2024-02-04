@@ -1,0 +1,5 @@
+###
+GET http://localhost:8080/foo?accessToken=123
+
+###
+GET http://localhost:8080/bar?acc=1
