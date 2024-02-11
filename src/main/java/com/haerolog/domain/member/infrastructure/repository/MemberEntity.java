@@ -3,13 +3,11 @@ package com.haerolog.domain.member.infrastructure.repository;
 import lombok.Builder;
 import lombok.Getter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
+@Table(name = "member")
 public class MemberEntity {
 
 	@Id
