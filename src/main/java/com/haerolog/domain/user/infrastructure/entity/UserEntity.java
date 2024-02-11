@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Table(name = "user")
+@Table(name = "users")
 public class UserEntity extends BaseEntity {
 
 	@Id
