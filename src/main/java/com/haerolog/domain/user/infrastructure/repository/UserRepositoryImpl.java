@@ -30,4 +30,9 @@ public class UserRepositoryImpl implements UserRepository {
 		return mapper.toModel(newUserEntity).getId();
 	}
 
+	@Override
+	public Optional<User> findByEmailAndPassword(String email, String password) {
+		return userJpaRepository.findByEmailAndPassword(email, password).map(mapper::toModel);
+	}
+
 }

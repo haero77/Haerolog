@@ -10,4 +10,6 @@ public interface UserRepository {
 
 	Long save(User user);
 
+	Optional<User> findByEmailAndPassword(String email, String password);
+
 }
