@@ -1,10 +1,13 @@
+server:
+  port: 8081
+
 spring:
   output:
     ansi:
       enabled: always
 
   datasource:
-    url: jdbc:h2:mem:haerolog
+    url: jdbc:h2:tcp://localhost/~/database/haerolog
     username: sa
     password:
     driver-class-name: org.h2.Driver
