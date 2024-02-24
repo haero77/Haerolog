@@ -7,7 +7,6 @@ import com.haerolog.domain.post.application.service.request.PostEdit;
 import com.haerolog.domain.post.application.service.request.PostSearch;
 import com.haerolog.domain.post.application.service.response.PostResponse;
 import com.haerolog.support.IntegrationTestSupport;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +24,6 @@ class PostServiceTest extends IntegrationTestSupport {
 
 	@Autowired
 	PostService sut;
-
-	@BeforeEach
-	public void clean() {
-		super.postRepository.deleteAllInBatch();
-	}
 
 	@DisplayName("글 작성")
 	@Test

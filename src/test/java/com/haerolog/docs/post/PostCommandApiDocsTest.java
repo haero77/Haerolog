@@ -2,7 +2,6 @@ package com.haerolog.docs.post;
 
 import com.haerolog.domain.post.application.service.request.PostAppend;
 import com.haerolog.support.RestDocsSupport;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -15,11 +14,6 @@ import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class PostCommandApiDocsTest extends RestDocsSupport {
-
-	@AfterEach
-	void afterEach() {
-		super.postRepository.deleteAllInBatch();
-	}
 
 	@DisplayName("글 작성")
 	@Test

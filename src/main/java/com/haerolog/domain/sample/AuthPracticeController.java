@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-public class AuthTestController {
+public class AuthPracticeController {
 
 	@GetMapping("/foo")
 	public Long foo(UserSession userSession) {

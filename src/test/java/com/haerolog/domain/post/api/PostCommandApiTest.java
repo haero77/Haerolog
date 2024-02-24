@@ -1,23 +1,17 @@
 package com.haerolog.domain.post.api;
 
+import com.haerolog.domain.post.application.service.request.PostCreate;
+import com.haerolog.support.IntegrationTestSupport;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.haerolog.domain.post.application.service.request.PostCreate;
-import com.haerolog.support.IntegrationTestSupport;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
 class PostCommandApiTest extends IntegrationTestSupport {
-
-	@AfterEach
-	void afterEach() {
-		super.postRepository.deleteAllInBatch();
-	}
 
 	@DisplayName("글 생성")
 	@Test

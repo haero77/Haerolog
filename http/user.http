@@ -1,0 +1,10 @@
+### 유저 추가
+
+POST {{host}}/api/v1/users
+Content-Type: application/json
+
+{
+  "name": "name1",
+  "email": "email1@gmail.com",
+  "password": "password1"
+}

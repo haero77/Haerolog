@@ -3,7 +3,6 @@ package com.haerolog.api.controller;
 import com.haerolog.domain.post.application.domain.Post;
 import com.haerolog.domain.post.application.service.request.PostCreate;
 import com.haerolog.support.IntegrationTestSupport;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -21,11 +20,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 class PostApiTest extends IntegrationTestSupport {
-
-	@BeforeEach
-	void clean() {
-		super.postRepository.deleteAllInBatch();
-	}
 
 	@DisplayName("/posts 요청 시 'Hello World' 를 출력한다.")
 	@Test

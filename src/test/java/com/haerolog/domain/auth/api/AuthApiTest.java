@@ -3,7 +3,6 @@ package com.haerolog.domain.auth.api;
 import com.haerolog.domain.auth.api.request.LoginRequest;
 import com.haerolog.domain.user.infrastructure.entity.UserEntity;
 import com.haerolog.support.IntegrationTestSupport;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -13,11 +12,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class AuthApiTest extends IntegrationTestSupport {
-
-	@AfterEach
-	void afterEach() {
-		super.userJpaRepository.deleteAll();
-	}
 
 	@DisplayName("로그인")
 	@Test
