@@ -1,8 +1,6 @@
 package com.haerolog.domain.user.service;
 
-import com.haerolog.domain.user.domain.UserAppend;
-import com.haerolog.domain.user.domain.UserAppender;
-import com.haerolog.domain.user.infrastructure.entity.UserEntity;
+import com.haerolog.domain.user.infrastructure.persistence.UserEntity;
 import com.haerolog.support.IntegrationTestSupport;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

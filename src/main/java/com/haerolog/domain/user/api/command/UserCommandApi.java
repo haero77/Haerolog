@@ -1,7 +1,7 @@
 package com.haerolog.domain.user.api.command;
 
 import com.haerolog.domain.user.api.command.requset.UserAppendRequest;
-import com.haerolog.domain.user.domain.UserService;
+import com.haerolog.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

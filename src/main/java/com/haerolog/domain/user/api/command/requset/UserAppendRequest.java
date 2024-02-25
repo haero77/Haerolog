@@ -1,6 +1,6 @@
 package com.haerolog.domain.user.api.command.requset;
 
-import com.haerolog.domain.user.domain.UserAppend;
+import com.haerolog.domain.user.service.UserAppend;
 import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;

@@ -2,8 +2,8 @@ package com.haerolog.domain.auth.api;
 
 import com.haerolog.domain.auth.api.request.LoginRequest;
 import com.haerolog.domain.auth.exception.InvalidLogInformation;
-import com.haerolog.domain.user.domain.User;
-import com.haerolog.domain.user.repository.UserRepository;
+import com.haerolog.domain.user.model.User;
+import com.haerolog.domain.user.service.port.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

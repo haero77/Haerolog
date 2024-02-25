@@ -1,4 +1,4 @@
-package com.haerolog.domain.user.domain;
+package com.haerolog.domain.user.model;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 public class User {
 
-	private Long id;
+	private final Long id;
 	private final String name;
 	private final String email;
 	private final String password;

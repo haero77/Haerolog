@@ -1,6 +1,7 @@
-package com.haerolog.domain.user.infrastructure.entity;
+package com.haerolog.domain.user.infrastructure.persistence;
 
-import com.haerolog.domain.common.infrastructure.entity.BaseTimeEntity;
+import com.haerolog.domain.common.infrastructure.persistence.BaseTimeEntity;
+import com.haerolog.domain.user.model.User;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,6 +29,24 @@ public class UserEntity extends BaseTimeEntity {
 		this.name = name;
 		this.email = email;
 		this.password = password;
+	}
+
+	public static UserEntity from(User user) {
+		return UserEntity.builder()
+				.id(user.getId())
+				.name(user.getName())
+				.email(user.getEmail())
+				.password(user.getPassword())
+				.build();
+	}
+
+	public User toModel() {
+		return User.builder()
+				.id(this.id)
+				.name(this.name)
+				.email(this.email)
+				.password(this.password)
+				.build();
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.haerolog.domain.common.infrastructure.entity;
+package com.haerolog.domain.common.infrastructure.persistence;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;

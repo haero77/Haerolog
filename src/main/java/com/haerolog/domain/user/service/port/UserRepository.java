@@ -1,6 +1,6 @@
-package com.haerolog.domain.user.repository;
+package com.haerolog.domain.user.service.port;
 
-import com.haerolog.domain.user.domain.User;
+import com.haerolog.domain.user.model.User;
 
 import java.util.Optional;
 

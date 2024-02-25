@@ -1,7 +1,7 @@
 package com.haerolog.domain.auth.api;
 
 import com.haerolog.domain.auth.api.request.LoginRequest;
-import com.haerolog.domain.user.infrastructure.entity.UserEntity;
+import com.haerolog.domain.user.infrastructure.persistence.UserEntity;
 import com.haerolog.support.IntegrationTestSupport;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

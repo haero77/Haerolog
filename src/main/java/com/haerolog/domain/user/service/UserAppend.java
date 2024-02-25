@@ -1,5 +1,6 @@
-package com.haerolog.domain.user.domain;
+package com.haerolog.domain.user.service;
 
+import com.haerolog.domain.user.model.User;
 import lombok.Builder;
 
 public class UserAppend {
@@ -16,7 +17,11 @@ public class UserAppend {
 	}
 
 	public User toModel() {
-		return User.of(name, email, password);
+		return User.builder()
+				.name(this.name)
+				.email(this.email)
+				.password(this.password)
+				.build();
 	}
 
 }

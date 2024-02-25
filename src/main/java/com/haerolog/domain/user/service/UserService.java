@@ -1,4 +1,4 @@
-package com.haerolog.domain.user.domain;
+package com.haerolog.domain.user.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
