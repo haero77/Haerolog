@@ -1,6 +1,7 @@
 package com.haerolog.support;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.haerolog.domain.auth.infrastructure.persistence.SessionJpaRepository;
 import com.haerolog.domain.post.repository.PostRepository;
 import com.haerolog.domain.user.infrastructure.persistence.UserJpaRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,10 +28,14 @@ public abstract class IntegrationTestSupport {
 	@Autowired
 	protected UserJpaRepository userJpaRepository;
 
+	@Autowired
+	protected SessionJpaRepository sessionJpaRepository;
+
 	@BeforeEach
 	void setUp() {
 		postRepository.deleteAllInBatch();
 		userJpaRepository.deleteAllInBatch();
+		sessionJpaRepository.deleteAllInBatch();
 	}
 
 }
