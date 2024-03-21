@@ -2,8 +2,6 @@ package com.haerolog.mock;
 
 import com.haerolog.domain.common.service.port.UuidHolder;
 
-import java.util.UUID;
-
 public class FakeUuidHolder implements UuidHolder {
 
 	private final String randomUuid;
@@ -13,8 +11,8 @@ public class FakeUuidHolder implements UuidHolder {
 	}
 
 	@Override
-	public UUID random() {
-		return UUID.fromString(this.randomUuid);
+	public String random() {
+		return this.randomUuid;
 	}
 
 }

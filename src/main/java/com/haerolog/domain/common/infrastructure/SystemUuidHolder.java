@@ -9,8 +9,8 @@ import java.util.UUID;
 public class SystemUuidHolder implements UuidHolder {
 
 	@Override
-	public UUID random() {
-		return UUID.randomUUID();
+	public String random() {
+		return UUID.randomUUID().toString();
 	}
 
 }
