@@ -27,9 +27,9 @@ public class ApiResponse<T> {
      * <?> 를 사용할 때는 컨트롤러에서도 <?> 처럼 리턴되기 때문에, 가독성이 떨어짐.
      * 팩토리 메서드에서 바로 생성자를 호출하면 되지만, 기존에 빌더를 생성하는 스타일이 무너지기 때문에 이렇게 한다.
      */
-    public static <T> ApiResponse<?> ok(T data) {
+    public static <T> ApiResponse<T> ok(T data) {
 //        return new ApiResponse<>(HttpStatus.OK, String.valueOf(HttpStatus.OK), data); // 가능
-        return ApiResponse.builder()
+        return ApiResponse.<T>builder()
                 .status(HttpStatus.OK)
                 .code(String.valueOf(HttpStatus.OK.value()))
                 .data(data)
