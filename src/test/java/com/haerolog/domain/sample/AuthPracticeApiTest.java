@@ -1,5 +1,7 @@
 package com.haerolog.domain.sample;
 
+import com.haerolog.domain.auth.infrastructure.persistence.SessionEntity;
+import com.haerolog.domain.user.infrastructure.persistence.UserEntity;
 import com.haerolog.support.IntegrationTestSupport;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,18 +15,67 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class AuthPracticeApiTest extends IntegrationTestSupport {
 
+    @DisplayName("헤더에 액세스 토큰이 없으면 401을 응답한다.")
+    @Test
+    void no_access_token() throws Exception {
+        // given
+        // expected
+        mockMvc.perform(get("/foo")
+                        .contentType(APPLICATION_JSON)
+                )
+                .andExpect(status().isUnauthorized())
+                .andExpect(jsonPath("$.status").value(HttpStatus.UNAUTHORIZED.value()))
+                .andDo(print());
+    }
+
     /**
      * (호돌맨) 세션 토큰 발급 API를 호출하여 테스트 하지 않는 이유?
      * -> login API 스펙이 바뀌면 사이드 이펙트가 있을 수 있음.
      */
-    @DisplayName("/foo")
+    @DisplayName("유효한 액세스 토큰으로 인증 가능하다.")
     @Test
     void foo() throws Exception {
         // given
+        UserEntity user = UserEntity.builder()
+                .email("email@email.com")
+                .password("password")
+                .build();
+        super.userJpaRepository.save(user);
 
+        SessionEntity session = SessionEntity.builder()
+                .accessToken("accessToken")
+                .userId(user.getId())
+                .build();
+        super.sessionJpaRepository.save(session);
 
         // expected
         mockMvc.perform(get("/foo")
+                        .header("Authorization", session.getAccessToken())
+                        .contentType(APPLICATION_JSON)
+                )
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
+    @DisplayName("로그인 후 검증되지 않은 세션값으로 권한이 필요한 페이지에 접속할 수 없다.")
+    @Test
+    void no_access_token_persistence() throws Exception {
+        // given
+        UserEntity user = UserEntity.builder()
+                .email("email@email.com")
+                .password("password")
+                .build();
+        super.userJpaRepository.save(user);
+
+        SessionEntity session = SessionEntity.builder()
+                .accessToken("accessToken")
+                .userId(user.getId())
+                .build();
+        super.sessionJpaRepository.save(session);
+
+        // expected
+        mockMvc.perform(get("/foo")
+                        .header("Authorization", "wrong-accessToken")
                         .contentType(APPLICATION_JSON)
                 )
                 .andExpect(status().isUnauthorized())

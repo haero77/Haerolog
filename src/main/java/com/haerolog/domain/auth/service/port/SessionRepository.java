@@ -13,4 +13,6 @@ public interface SessionRepository {
 
     Optional<Session> findById(Long sessionId);
 
+    Optional<Session> findByAccessToken(String accessToken);
+
 }

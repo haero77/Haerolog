@@ -19,11 +19,11 @@ spring:
     properties:
       hibernate:
         format_sql: true
-    defer-datasource-initialization: false
+    defer-datasource-initialization: true
 
   sql:
     init:
-      mode: never
+      mode: always
 
   h2:
     console:

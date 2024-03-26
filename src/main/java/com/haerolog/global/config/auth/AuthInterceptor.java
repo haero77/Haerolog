@@ -1,6 +1,6 @@
 package com.haerolog.global.config.auth;
 
-import com.haerolog.global.error.exception.Unauthorized;
+import com.haerolog.global.error.exception.UnauthorizedException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -23,7 +23,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 			return true;
 		}
 
-		throw new Unauthorized();
+		throw new UnauthorizedException();
 	}
 
 	@Override

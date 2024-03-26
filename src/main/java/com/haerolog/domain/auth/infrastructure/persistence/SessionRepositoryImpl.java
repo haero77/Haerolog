@@ -21,8 +21,12 @@ public class SessionRepositoryImpl implements SessionRepository {
 
     @Override
     public Optional<Session> findById(Long sessionId) {
-        return sessionJpaRepository.findById(sessionId)
-                .map(SessionEntity::toModel);
+        return sessionJpaRepository.findById(sessionId).map(SessionEntity::toModel);
+    }
+
+    @Override
+    public Optional<Session> findByAccessToken(String accessToken) {
+        return sessionJpaRepository.findByAccessToken(accessToken).map(SessionEntity::toModel);
     }
 
 }
