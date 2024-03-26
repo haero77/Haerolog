@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @Slf4j
 @RestControllerAdvice
-public class ExceptionController {
+public class ExceptionControllerAdvice {
 
 	/**
 	 * 스프링에서 제공하는 MethodArgumentNotValidException, BindException 등은
@@ -30,15 +30,14 @@ public class ExceptionController {
 	public ResponseEntity<ErrorResponse> handelHaerologException(HaerologException e) {
 		log.info(e.getMessage(), e);
 
-		int statusCode = e.getStatusCode();
-
-		ErrorResponse response = ErrorResponse.builder()
-				.code(String.valueOf(statusCode))
+        ErrorResponse response = ErrorResponse.builder()
+				.status(e.getStatusCode())
+				.code(String.valueOf(e.getStatusCode()))
 				.message(e.getMessage())
 				.validation(e.getValidation())
 				.build();
 
-		return ResponseEntity.status(statusCode).body(response);
+		return ResponseEntity.status(e.getStatusCode()).body(response);
 	}
 
 }
