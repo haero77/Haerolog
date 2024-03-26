@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class LoginApiTest extends IntegrationTestSupport {
 
-    @DisplayName("이메일과 비밀번호로 로그인 가능하다.")
+    @DisplayName("로그인 성공 후 세션을 응답한다.")
     @Test
     void login() throws Exception {
         // given
@@ -40,7 +40,7 @@ class LoginApiTest extends IntegrationTestSupport {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value(200))
                 .andExpect(jsonPath("$.code").value("200"))
-                .andExpect(jsonPath("$.data.sessionId").exists())
+                .andExpect(jsonPath("$.data.accessToken").exists())
                 .andDo(print());
 
         int sessionSize = super.sessionJpaRepository.findAll().size();
