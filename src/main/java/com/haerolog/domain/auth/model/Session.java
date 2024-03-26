@@ -7,13 +7,13 @@ import lombok.Getter;
 @Getter
 public class Session {
 
-	private final Long sessionId;
+	private final Long id;
 	private final String accessToken;
 	private final Long userId;
 
 	@Builder
-	private Session(Long sessionId, String accessToken, Long userId) {
-		this.sessionId = sessionId;
+	private Session(Long id, String accessToken, Long userId) {
+		this.id = id;
 		this.accessToken = accessToken;
         this.userId = userId;
     }

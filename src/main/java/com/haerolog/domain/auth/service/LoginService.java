@@ -1,5 +1,6 @@
 package com.haerolog.domain.auth.service;
 
+import com.haerolog.domain.auth.model.Session;
 import com.haerolog.domain.user.model.User;
 import com.haerolog.domain.user.service.UserReader;
 import lombok.RequiredArgsConstructor;
@@ -11,10 +12,16 @@ public class LoginService {
 
     private final UserReader userReader;
 	private final SessionAppender sessionAppender;
+	private final SessionReader sessionReader;
 
-	public void login(LoginRequest loginRequest) {
+	/**
+	 * @return accessToken
+	 */
+	public String login(LoginRequest loginRequest) {
 		User user = userReader.getBy(loginRequest.toUserEmailPassword());
-		sessionAppender.append(SessionAppend.fromUserId(user.getId()));
+		Long sessionId = sessionAppender.append(SessionAppend.fromUserId(user.getId()));
+		Session session = sessionReader.getById(sessionId);
+		return session.getAccessToken();
 	}
 
 }

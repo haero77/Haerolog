@@ -1,21 +1,20 @@
 package com.haerolog.domain.auth.service;
 
+import com.haerolog.domain.auth.exception.SessionNotFoundException;
 import com.haerolog.domain.auth.model.Session;
 import com.haerolog.domain.auth.service.port.SessionRepository;
-import com.haerolog.domain.common.service.port.UuidHolder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class SessionAppender {
+public class SessionReader {
 
     private final SessionRepository sessionRepository;
-    private final UuidHolder uuidHolder;
 
-    public Long append(SessionAppend sessionAppend) {
-        Session newSession = Session.from(uuidHolder, sessionAppend.getUserId());
-        return sessionRepository.save(newSession);
+    public Session getById(Long sessionId) {
+        return sessionRepository.findById(sessionId)
+                .orElseThrow(() -> SessionNotFoundException.from(sessionId));
     }
 
 }

@@ -16,7 +16,7 @@ class LoginServiceTest extends IntegrationTestSupport {
 
     @DisplayName("이메일과 비밀번호로 로그인 가능하다.")
     @Test
-    void login() {
+    void  login() {
         // given
         UserEntity user = UserEntity.builder()
                 .name("name")

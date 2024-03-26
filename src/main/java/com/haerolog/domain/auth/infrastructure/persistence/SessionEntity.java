@@ -40,4 +40,12 @@ public class SessionEntity {
                 .build();
     }
 
+    public Session toModel() {
+        return Session.builder()
+                .id(this.id)
+                .accessToken(this.accessToken)
+                .userId(this.userId)
+                .build();
+    }
+
 }

@@ -5,15 +5,24 @@ import com.haerolog.domain.auth.service.port.SessionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 @RequiredArgsConstructor
 public class SessionRepositoryImpl implements SessionRepository {
 
-	private final SessionJpaRepository sessionJpaRepository;
+    private final SessionJpaRepository sessionJpaRepository;
 
-	@Override
-	public void save(Session session) {
-		sessionJpaRepository.save(SessionEntity.fromModel(session));
-	}
+    @Override
+    public Long save(Session session) {
+        SessionEntity sessionEntity = sessionJpaRepository.save(SessionEntity.fromModel(session));
+        return sessionEntity.getId();
+    }
+
+    @Override
+    public Optional<Session> findById(Long sessionId) {
+        return sessionJpaRepository.findById(sessionId)
+                .map(SessionEntity::toModel);
+    }
 
 }

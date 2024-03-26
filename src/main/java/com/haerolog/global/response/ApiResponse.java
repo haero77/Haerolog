@@ -10,14 +10,14 @@ import java.time.LocalDateTime;
 public class ApiResponse<T> {
 
     private final LocalDateTime timestamp;
-    private final HttpStatus status;
+    private final int status;
     private final String code;
     private final T data;
 
     @Builder
     private ApiResponse(HttpStatus status, String code, T data) {
         this.timestamp = LocalDateTime.now();
-        this.status = status;
+        this.status = status.value();
         this.code = code;
         this.data = data;
     }
