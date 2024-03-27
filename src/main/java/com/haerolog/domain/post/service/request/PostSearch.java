@@ -1,12 +1,13 @@
-package com.haerolog.domain.post.application.service.request;
+package com.haerolog.domain.post.service.request;
 
-import static java.lang.Math.max;
-import static java.lang.Math.min;
-
-import javax.validation.constraints.Min;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
+
+import javax.validation.constraints.Min;
+
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 /**
  * 나중에 요구사항(정렬, 검색 옵션 등)이 추가될 수 있으므로 Pageable이 아닌 커스텀 Request 사용

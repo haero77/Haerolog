@@ -1,7 +1,7 @@
 package com.haerolog.support;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.haerolog.domain.post.repository.PostRepository;
+import com.haerolog.domain.post.infrastructure.repository.PostJpaRepository;
 import com.haerolog.domain.user.infrastructure.persistence.UserJpaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,7 +27,7 @@ public class RestDocsSupport {
 	protected ObjectMapper objectMapper;
 
 	@Autowired
-	protected PostRepository postRepository;
+	protected PostJpaRepository postJpaRepository;
 
 	@Autowired
 	protected UserJpaRepository userJpaRepository;
@@ -35,7 +35,7 @@ public class RestDocsSupport {
 	@BeforeEach
 	void setUp() {
 		userJpaRepository.deleteAllInBatch();
-		postRepository.deleteAllInBatch();
+		postJpaRepository.deleteAllInBatch();
 	}
 
 }

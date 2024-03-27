@@ -1,6 +1,6 @@
-package com.haerolog.domain.post.application.service.response;
+package com.haerolog.domain.post.service.response;
 
-import com.haerolog.domain.post.application.domain.Post;
+import com.haerolog.domain.post.infrastructure.repository.PostEntity;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -15,7 +15,7 @@ public class PostResponse {
     private final String title;
     private final String content;
 
-    public PostResponse(Post post) {
+    public PostResponse(PostEntity post) {
         this(post.getId(), post.getTitle(), post.getContent());
     }
 

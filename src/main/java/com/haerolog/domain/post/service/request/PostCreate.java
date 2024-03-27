@@ -1,10 +1,11 @@
-package com.haerolog.domain.post.application.service.request;
+package com.haerolog.domain.post.service.request;
 
-import com.haerolog.domain.post.application.domain.Post;
+import com.haerolog.domain.post.infrastructure.repository.PostEntity;
 import com.haerolog.global.error.exception.InvalidRequestException;
-import javax.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
+
+import javax.validation.constraints.NotBlank;
 
 @Getter
 public class PostCreate {
@@ -30,8 +31,8 @@ public class PostCreate {
         }
     }
 
-    public Post toEntity() {
-        return Post.builder()
+    public PostEntity toEntity() {
+        return PostEntity.builder()
                 .title(title)
                 .content(content)
                 .build();

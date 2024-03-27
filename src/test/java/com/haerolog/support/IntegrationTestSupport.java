@@ -2,7 +2,7 @@ package com.haerolog.support;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.haerolog.domain.auth.infrastructure.persistence.SessionJpaRepository;
-import com.haerolog.domain.post.repository.PostRepository;
+import com.haerolog.domain.post.infrastructure.repository.PostJpaRepository;
 import com.haerolog.domain.user.infrastructure.persistence.UserJpaRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public abstract class IntegrationTestSupport {
     protected ObjectMapper objectMapper;
 
     @Autowired
-    protected PostRepository postRepository;
+    protected PostJpaRepository postJpaRepository;
 
     @Autowired
     protected UserJpaRepository userJpaRepository;
@@ -33,7 +33,7 @@ public abstract class IntegrationTestSupport {
 
     @AfterEach
     void afterEach() {
-        postRepository.deleteAllInBatch();
+        postJpaRepository.deleteAllInBatch();
         userJpaRepository.deleteAllInBatch();
         sessionJpaRepository.deleteAllInBatch();
     }

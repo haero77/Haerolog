@@ -1,8 +1,9 @@
-package com.haerolog.domain.post.application.service.request;
+package com.haerolog.domain.post.service.request;
 
-import javax.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
+
+import javax.validation.constraints.NotBlank;
 
 @Getter
 public class PostEdit {
