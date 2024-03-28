@@ -16,7 +16,7 @@ public class UserAppend {
 		this.password = password;
 	}
 
-	public User toModel() {
+	public User toUser() {
 		return User.builder()
 				.name(this.name)
 				.email(this.email)

@@ -1,9 +1,9 @@
 package com.haerolog.support;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.haerolog.domain.auth.infrastructure.persistence.SessionJpaRepository;
-import com.haerolog.domain.post.infrastructure.repository.PostJpaRepository;
-import com.haerolog.domain.user.infrastructure.persistence.UserJpaRepository;
+import com.haerolog.domain.auth.repository.SessionRepository;
+import com.haerolog.domain.post.repository.PostRepository;
+import com.haerolog.domain.user.repository.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -23,19 +23,19 @@ public abstract class IntegrationTestSupport {
     protected ObjectMapper objectMapper;
 
     @Autowired
-    protected PostJpaRepository postJpaRepository;
+    protected PostRepository postRepository;
 
     @Autowired
-    protected UserJpaRepository userJpaRepository;
+    protected UserRepository userRepository;
 
     @Autowired
-    protected SessionJpaRepository sessionJpaRepository;
+    protected SessionRepository sessionRepository;
 
     @AfterEach
     void afterEach() {
-        postJpaRepository.deleteAllInBatch();
-        userJpaRepository.deleteAllInBatch();
-        sessionJpaRepository.deleteAllInBatch();
+        postRepository.deleteAllInBatch();
+        userRepository.deleteAllInBatch();
+        sessionRepository.deleteAllInBatch();
     }
 
 }

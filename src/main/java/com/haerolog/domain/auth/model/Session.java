@@ -1,28 +1,48 @@
 package com.haerolog.domain.auth.model;
 
-import com.haerolog.domain.common.service.port.UuidHolder;
+import com.haerolog.domain.user.model.User;
+import com.haerolog.global.model.BaseTimeEntity;
+import com.haerolog.global.service.UuidHolder;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+
+import static javax.persistence.GenerationType.IDENTITY;
+
+@Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class Session {
+public class Session extends BaseTimeEntity {
 
-	private final Long id;
-	private final String accessToken;
-	private final Long userId;
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    private Long sessionId;
 
-	@Builder
-	private Session(Long id, String accessToken, Long userId) {
-		this.id = id;
-		this.accessToken = accessToken;
-        this.userId = userId;
+    @Column(nullable = false)
+    private String accessToken;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+    private User user;
+
+    @Builder
+    private Session(String accessToken, User user) {
+        this.accessToken = accessToken;
+        this.user = user;
     }
 
-	public static Session from(UuidHolder uuidHolder, Long userId) {
-		return Session.builder()
-				.accessToken(uuidHolder.random())
-				.userId(userId)
-				.build();
-	}
+    public static Session of(UuidHolder uuidHolder, User user) {
+        return Session.builder()
+                .accessToken(uuidHolder.random())
+                .user(user)
+                .build();
+    }
+
+    public Long fetchUserId() {
+        return this.user.getUserId();
+    }
 
 }

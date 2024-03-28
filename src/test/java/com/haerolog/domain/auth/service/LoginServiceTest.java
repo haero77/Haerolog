@@ -1,7 +1,9 @@
 package com.haerolog.domain.auth.service;
 
-import com.haerolog.domain.auth.infrastructure.persistence.SessionEntity;
-import com.haerolog.domain.user.infrastructure.persistence.UserEntity;
+import com.haerolog.domain.auth.model.Session;
+import com.haerolog.domain.auth.service.login.LoginRequest;
+import com.haerolog.domain.auth.service.login.LoginService;
+import com.haerolog.domain.user.model.User;
 import com.haerolog.support.IntegrationTestSupport;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,12 +20,12 @@ class LoginServiceTest extends IntegrationTestSupport {
     @Test
     void  login() {
         // given
-        UserEntity user = UserEntity.builder()
+        User user = User.builder()
                 .name("name")
                 .email("email@email.com")
                 .password("pw")
                 .build();
-        super.userJpaRepository.save(user);
+        super.userRepository.save(user);
 
         LoginRequest loginRequest = LoginRequest.builder()
                 .email("email@email.com")
@@ -34,8 +36,8 @@ class LoginServiceTest extends IntegrationTestSupport {
         sut.login(loginRequest);
 
         // then
-        SessionEntity sessionEntity = super.sessionJpaRepository.findAll().get(0);
-        assertThat(sessionEntity.getUserId()).isEqualTo(user.getId());
+        Session session = super.sessionRepository.findAll().get(0);
+        assertThat(session.getUser().getUserId()).isEqualTo(user.getUserId());
     }
 
 

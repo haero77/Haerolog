@@ -1,6 +1,6 @@
 package com.haerolog.global.config;
 
-import com.haerolog.domain.auth.service.port.SessionRepository;
+import com.haerolog.domain.auth.repository.SessionRepository;
 import com.haerolog.global.config.auth.AuthResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;

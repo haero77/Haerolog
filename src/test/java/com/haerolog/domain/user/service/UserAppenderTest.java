@@ -1,6 +1,6 @@
 package com.haerolog.domain.user.service;
 
-import com.haerolog.domain.user.infrastructure.persistence.UserEntity;
+import com.haerolog.domain.user.model.User;
 import com.haerolog.support.IntegrationTestSupport;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,11 +25,11 @@ class UserAppenderTest extends IntegrationTestSupport {
 
 		Long userId = sut.append(userAppend);
 
-		UserEntity userEntity = super.userJpaRepository.findById(userId).get();
+		User user = super.userRepository.findById(userId).get();
 		assertAll(
-				() -> assertThat(userEntity.getId()).isEqualTo(userId),
-				() -> assertThat(userEntity.getEmail()).isEqualTo("email@gmail.com"),
-				() -> assertThat(userEntity.getPassword()).isEqualTo("pw")
+				() -> assertThat(user.getUserId()).isEqualTo(userId),
+				() -> assertThat(user.getEmail()).isEqualTo("email@gmail.com"),
+				() -> assertThat(user.getPassword()).isEqualTo("pw")
 		);
 	}
 

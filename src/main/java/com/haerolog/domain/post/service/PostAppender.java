@@ -1,6 +1,6 @@
 package com.haerolog.domain.post.service;
 
-import com.haerolog.domain.post.infrastructure.repository.PostRepository;
+import com.haerolog.domain.post.repository.PostRepository;
 import com.haerolog.domain.post.service.request.PostAppend;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

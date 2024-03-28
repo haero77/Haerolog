@@ -1,18 +1,29 @@
 package com.haerolog.domain.post.model;
 
+import com.haerolog.global.model.BaseTimeEntity;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+
+@Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class Post {
+public class Post extends BaseTimeEntity {
 
-    private final Long id;
-    private final String title;
-    private final String content;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long postId;
+
+    private String title;
+
+    @Lob
+    private String content;
 
     @Builder
-    private Post(Long id, String title, String content) {
-        this.id = id;
+    private Post(String title, String content) {
         this.title = title;
         this.content = content;
     }

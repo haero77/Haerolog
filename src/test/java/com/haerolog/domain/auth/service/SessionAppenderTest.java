@@ -1,8 +1,12 @@
 package com.haerolog.domain.auth.service;
 
-import com.haerolog.domain.auth.infrastructure.persistence.SessionEntity;
-import com.haerolog.domain.auth.service.port.SessionRepository;
-import com.haerolog.domain.common.service.port.UuidHolder;
+import com.haerolog.domain.auth.model.Session;
+import com.haerolog.domain.auth.repository.SessionRepository;
+import com.haerolog.domain.auth.service.session.SessionAppend;
+import com.haerolog.domain.auth.service.session.SessionAppender;
+import com.haerolog.domain.user.model.User;
+import com.haerolog.domain.user.service.UserReader;
+import com.haerolog.global.service.UuidHolder;
 import com.haerolog.mock.FakeUuidHolder;
 import com.haerolog.support.IntegrationTestSupport;
 import org.junit.jupiter.api.DisplayName;
@@ -17,22 +21,29 @@ class SessionAppenderTest extends IntegrationTestSupport {
     @Autowired
     SessionRepository sessionRepository;
 
+    @Autowired
+    UserReader userReader;
+
     @DisplayName("세션을 추가한다.")
     @Test
     void append() {
+        User user = User.builder()
+                .build();
+        super.userRepository.save(user);
+
         UuidHolder uuidHolder = new FakeUuidHolder("aaa-aaa-aaa-aaa");
-        SessionAppender sut = new SessionAppender(sessionRepository, uuidHolder);
+        SessionAppender sut = new SessionAppender(sessionRepository, uuidHolder, userReader);
 
         SessionAppend sessionAppend = SessionAppend.builder()
-                .userId(1L)
+                .userId(user.getUserId())
                 .build();
 
         sut.append(sessionAppend);
 
-        SessionEntity sessionEntity = super.sessionJpaRepository.findAll().get(0);
+        Session session = super.sessionRepository.findAll().get(0);
         assertAll(
-                () -> assertThat(sessionEntity.getUserId()).isEqualTo(1L),
-                () -> assertThat(sessionEntity.getAccessToken()).isEqualTo("aaa-aaa-aaa-aaa")
+                () -> assertThat(session.getUser().getUserId()).isEqualTo(user.getUserId()),
+                () -> assertThat(session.getAccessToken()).isEqualTo("aaa-aaa-aaa-aaa")
         );
     }
 

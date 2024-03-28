@@ -1,7 +1,7 @@
 package com.haerolog.global.config.auth;
 
 import com.haerolog.domain.auth.model.Session;
-import com.haerolog.domain.auth.service.port.SessionRepository;
+import com.haerolog.domain.auth.repository.SessionRepository;
 import com.haerolog.global.config.auth.data.UserSession;
 import com.haerolog.global.error.exception.UnauthorizedException;
 import lombok.RequiredArgsConstructor;
@@ -44,7 +44,7 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
         Session session = sessionRepository.findByAccessToken(accessToken)
                 .orElseThrow(UnauthorizedException::new);
 
-        return new UserSession(session.getUserId());
+        return new UserSession(session.fetchUserId());
     }
 
 }

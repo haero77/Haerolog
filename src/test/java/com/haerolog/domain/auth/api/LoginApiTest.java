@@ -1,7 +1,7 @@
 package com.haerolog.domain.auth.api;
 
-import com.haerolog.domain.auth.service.LoginRequest;
-import com.haerolog.domain.user.infrastructure.persistence.UserEntity;
+import com.haerolog.domain.auth.service.login.LoginRequest;
+import com.haerolog.domain.user.model.User;
 import com.haerolog.support.IntegrationTestSupport;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,8 +19,8 @@ class LoginApiTest extends IntegrationTestSupport {
     @Test
     void login() throws Exception {
         // given
-        super.userJpaRepository.save(
-                UserEntity.builder()
+        super.userRepository.save(
+                User.builder()
                         .email("email@email.com")
                         .password("password")
                         .build()
@@ -43,7 +43,7 @@ class LoginApiTest extends IntegrationTestSupport {
                 .andExpect(jsonPath("$.data.accessToken").exists())
                 .andDo(print());
 
-        int sessionSize = super.sessionJpaRepository.findAll().size();
+        int sessionSize = super.sessionRepository.findAll().size();
         assertThat(sessionSize).isEqualTo(1);
     }
 

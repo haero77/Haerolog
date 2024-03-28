@@ -1,6 +1,7 @@
 package com.haerolog.domain.user.service;
 
-import com.haerolog.domain.user.service.port.UserRepository;
+import com.haerolog.domain.user.model.User;
+import com.haerolog.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +12,8 @@ public class UserAppender {
 	private final UserRepository userRepository;
 
 	public Long append(UserAppend userAppend) {
-		return userRepository.save(userAppend.toModel());
+		User savedUser = userRepository.save(userAppend.toUser());
+		return savedUser.getUserId();
 	}
 
 }

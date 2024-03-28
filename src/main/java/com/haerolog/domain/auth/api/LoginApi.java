@@ -1,7 +1,7 @@
 package com.haerolog.domain.auth.api;
 
-import com.haerolog.domain.auth.service.LoginRequest;
-import com.haerolog.domain.auth.service.LoginService;
+import com.haerolog.domain.auth.service.login.LoginRequest;
+import com.haerolog.domain.auth.service.login.LoginService;
 import com.haerolog.global.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;

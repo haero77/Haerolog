@@ -1,7 +1,7 @@
 package com.haerolog.domain.sample;
 
-import com.haerolog.domain.auth.infrastructure.persistence.SessionEntity;
-import com.haerolog.domain.user.infrastructure.persistence.UserEntity;
+import com.haerolog.domain.auth.model.Session;
+import com.haerolog.domain.user.model.User;
 import com.haerolog.support.IntegrationTestSupport;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -36,17 +36,17 @@ class AuthPracticeApiTest extends IntegrationTestSupport {
     @Test
     void foo() throws Exception {
         // given
-        UserEntity user = UserEntity.builder()
+        User user = User.builder()
                 .email("email@email.com")
                 .password("password")
                 .build();
-        super.userJpaRepository.save(user);
+        super.userRepository.save(user);
 
-        SessionEntity session = SessionEntity.builder()
+        Session session = Session.builder()
                 .accessToken("accessToken")
-                .userId(user.getId())
+                .user(user)
                 .build();
-        super.sessionJpaRepository.save(session);
+        super.sessionRepository.save(session);
 
         // expected
         mockMvc.perform(get("/foo")
@@ -61,17 +61,17 @@ class AuthPracticeApiTest extends IntegrationTestSupport {
     @Test
     void no_access_token_persistence() throws Exception {
         // given
-        UserEntity user = UserEntity.builder()
+        User user = User.builder()
                 .email("email@email.com")
                 .password("password")
                 .build();
-        super.userJpaRepository.save(user);
+        super.userRepository.save(user);
 
-        SessionEntity session = SessionEntity.builder()
+        Session session = Session.builder()
                 .accessToken("accessToken")
-                .userId(user.getId())
+                .user(user)
                 .build();
-        super.sessionJpaRepository.save(session);
+        super.sessionRepository.save(session);
 
         // expected
         mockMvc.perform(get("/foo")

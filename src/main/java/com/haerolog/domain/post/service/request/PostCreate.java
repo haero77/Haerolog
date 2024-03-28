@@ -1,6 +1,6 @@
 package com.haerolog.domain.post.service.request;
 
-import com.haerolog.domain.post.infrastructure.repository.PostEntity;
+import com.haerolog.domain.post.model.Post;
 import com.haerolog.global.error.exception.InvalidRequestException;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,8 +31,8 @@ public class PostCreate {
         }
     }
 
-    public PostEntity toEntity() {
-        return PostEntity.builder()
+    public Post toEntity() {
+        return Post.builder()
                 .title(title)
                 .content(content)
                 .build();

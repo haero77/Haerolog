@@ -1,6 +1,6 @@
 package com.haerolog.mock;
 
-import com.haerolog.domain.common.service.port.UuidHolder;
+import com.haerolog.global.service.UuidHolder;
 
 public class FakeUuidHolder implements UuidHolder {
 

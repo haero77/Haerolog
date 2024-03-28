@@ -1,8 +1,8 @@
 package com.haerolog.domain.post.service;
 
 import com.haerolog.domain.post.exception.PostNotFoundException;
-import com.haerolog.domain.post.infrastructure.repository.PostRepository;
 import com.haerolog.domain.post.model.Post;
+import com.haerolog.domain.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -12,8 +12,9 @@ public class PostReader {
 
 	private final PostRepository postRepository;
 
-	public Post getById(long id) {
-		return postRepository.findById(id).orElseThrow(PostNotFoundException::new);
+	public Post getById(long postId) {
+		return postRepository.findById(postId)
+				.orElseThrow(PostNotFoundException::new);
 	}
 
 }

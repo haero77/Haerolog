@@ -1,30 +1,35 @@
 package com.haerolog.domain.user.model;
 
+import com.haerolog.global.model.BaseTimeEntity;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
+import javax.persistence.*;
+
+@Entity
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class User {
+@Table(name = "users") // Syntax error in SQL statement 오류 방지
+public class User extends BaseTimeEntity {
 
-	private final Long id;
-	private final String name;
-	private final String email;
-	private final String password;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long userId;
 
-	@Builder
-	private User(Long id, String name, String email, String password) {
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.password = password;
-	}
+    private String name;
 
-	public static User of(String name, String email, String password) {
-		return User.builder()
-				.name(name)
-				.email(email)
-				.password(password)
-				.build();
-	}
+    private String email;
+
+    private String password;
+
+    @Builder
+    private User(Long userId, String name, String email, String password) {
+        this.userId = userId;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
 
 }
