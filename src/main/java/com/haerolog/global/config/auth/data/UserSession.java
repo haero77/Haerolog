@@ -1,5 +1,6 @@
 package com.haerolog.global.config.auth.data;
 
+import com.haerolog.domain.user.dto.UserId;
 import lombok.Getter;
 
 /**
@@ -8,10 +9,14 @@ import lombok.Getter;
 @Getter
 public class UserSession {
 
-	private final Long id;
+	private final Long userId;
 
-	public UserSession(Long id) {
-		this.id = id;
+	public UserSession(Long userId) {
+		this.userId = userId;
+	}
+
+	public UserId fetchUserId() {
+		return new UserId(this.userId);
 	}
 
 }
