@@ -5,10 +5,12 @@ import com.haerolog.domain.auth.repository.SessionRepository;
 import com.haerolog.domain.auth.service.session.SessionAppend;
 import com.haerolog.domain.auth.service.session.SessionAppender;
 import com.haerolog.domain.user.model.User;
+import com.haerolog.domain.user.repository.UserRepository;
 import com.haerolog.domain.user.service.UserReader;
 import com.haerolog.global.service.UuidHolder;
 import com.haerolog.mock.FakeUuidHolder;
 import com.haerolog.support.IntegrationTestSupport;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +21,26 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class SessionAppenderTest extends IntegrationTestSupport {
 
     @Autowired
-    SessionRepository sessionRepository;
+    UserReader userReader;
 
     @Autowired
-    UserReader userReader;
+    UserRepository userRepository;
+
+    @Autowired
+    SessionRepository sessionRepository;
+
+    @AfterEach
+    void afterEach() {
+        userRepository.deleteAllInBatch();
+        sessionRepository.deleteAllInBatch();
+    }
 
     @DisplayName("세션을 추가한다.")
     @Test
     void append() {
         User user = User.builder()
                 .build();
-        super.userRepository.save(user);
+        userRepository.save(user);
 
         UuidHolder uuidHolder = new FakeUuidHolder("aaa-aaa-aaa-aaa");
         SessionAppender sut = new SessionAppender(sessionRepository, uuidHolder, userReader);
@@ -40,7 +51,7 @@ class SessionAppenderTest extends IntegrationTestSupport {
 
         sut.append(sessionAppend);
 
-        Session session = super.sessionRepository.findAll().get(0);
+        Session session = sessionRepository.findAll().get(0);
         assertAll(
                 () -> assertThat(session.getUser().getUserId()).isEqualTo(user.getUserId()),
                 () -> assertThat(session.getAccessToken()).isEqualTo("aaa-aaa-aaa-aaa")

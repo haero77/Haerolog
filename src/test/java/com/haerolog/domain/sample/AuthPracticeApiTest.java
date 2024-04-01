@@ -1,10 +1,14 @@
 package com.haerolog.domain.sample;
 
 import com.haerolog.domain.auth.model.Session;
+import com.haerolog.domain.auth.repository.SessionRepository;
 import com.haerolog.domain.user.model.User;
+import com.haerolog.domain.user.repository.UserRepository;
 import com.haerolog.support.IntegrationTestSupport;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -14,6 +18,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class AuthPracticeApiTest extends IntegrationTestSupport {
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    SessionRepository sessionRepository;
+
+    @AfterEach
+    void afterEach() {
+        userRepository.deleteAllInBatch();
+        sessionRepository.deleteAllInBatch();
+    }
 
     @DisplayName("헤더에 액세스 토큰이 없으면 401을 응답한다.")
     @Test
@@ -40,13 +56,13 @@ class AuthPracticeApiTest extends IntegrationTestSupport {
                 .email("email@email.com")
                 .password("password")
                 .build();
-        super.userRepository.save(user);
+        userRepository.save(user);
 
         Session session = Session.builder()
                 .accessToken("accessToken")
                 .user(user)
                 .build();
-        super.sessionRepository.save(session);
+        sessionRepository.save(session);
 
         // expected
         mockMvc.perform(get("/foo")
@@ -65,13 +81,13 @@ class AuthPracticeApiTest extends IntegrationTestSupport {
                 .email("email@email.com")
                 .password("password")
                 .build();
-        super.userRepository.save(user);
+        userRepository.save(user);
 
         Session session = Session.builder()
                 .accessToken("accessToken")
                 .user(user)
                 .build();
-        super.sessionRepository.save(session);
+        sessionRepository.save(session);
 
         // expected
         mockMvc.perform(get("/foo")

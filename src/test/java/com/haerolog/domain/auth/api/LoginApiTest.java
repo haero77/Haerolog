@@ -1,10 +1,14 @@
 package com.haerolog.domain.auth.api;
 
+import com.haerolog.domain.auth.repository.SessionRepository;
 import com.haerolog.domain.auth.service.login.LoginRequest;
 import com.haerolog.domain.user.model.User;
+import com.haerolog.domain.user.repository.UserRepository;
 import com.haerolog.support.IntegrationTestSupport;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -15,11 +19,23 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class LoginApiTest extends IntegrationTestSupport {
 
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    SessionRepository sessionRepository;
+
+    @AfterEach
+    void afterEach() {
+        userRepository.deleteAllInBatch();
+        sessionRepository.deleteAllInBatch();
+    }
+
     @DisplayName("로그인 성공 후 세션을 응답한다.")
     @Test
     void login() throws Exception {
         // given
-        super.userRepository.save(
+        userRepository.save(
                 User.builder()
                         .email("email@email.com")
                         .password("password")
@@ -43,7 +59,7 @@ class LoginApiTest extends IntegrationTestSupport {
                 .andExpect(jsonPath("$.data.accessToken").exists())
                 .andDo(print());
 
-        int sessionSize = super.sessionRepository.findAll().size();
+        int sessionSize = sessionRepository.findAll().size();
         assertThat(sessionSize).isEqualTo(1);
     }
 
