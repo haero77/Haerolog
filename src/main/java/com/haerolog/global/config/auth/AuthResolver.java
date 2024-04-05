@@ -45,12 +45,12 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
         }
 
         Cookie[] cookies = servletRequest.getCookies();
-        if (cookies.length == 0) {
+        if (Objects.isNull(cookies) || cookies.length == 0) {
             log.error("No Cookie exists.");
             throw new UnauthorizedException();
         }
 
-        String accessToken = cookies[0].getValue();
+        String accessToken = cookies[0].getValue(); // fixme: cookies[0] 의 쿠키 이름이 'SESSION'이 아니라면 문제가 생긴다.
 
         if (!StringUtils.hasText(accessToken)) {
             throw new UnauthorizedException();

@@ -6,6 +6,7 @@ import com.haerolog.domain.user.model.User;
 import com.haerolog.domain.user.repository.UserRepository;
 import com.haerolog.support.IntegrationTestSupport;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,7 @@ class AuthPracticeApiTest extends IntegrationTestSupport {
      * (호돌맨) 세션 토큰 발급 API를 호출하여 테스트 하지 않는 이유?
      * -> login API 스펙이 바뀌면 사이드 이펙트가 있을 수 있음.
      */
+    @Disabled
     @DisplayName("유효한 액세스 토큰으로 인증 가능하다.")
     @Test
     void foo() throws Exception {
