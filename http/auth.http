@@ -1,17 +1,19 @@
 ### 로그인
 
-POST {{host}}/auth/login
+POST {{host}}/api/v1/login
 Content-Type: application/json
 
 {
-  "email": "user1@gmail.com",
-  "password": "password2"
+    "email": "user1@gmail.com",
+    "password": "password1"
 }
 
-###
+### 인증 페이지 요청
 GET {{host}}/foo
 Content-Type: application/json
-Authorization: 123
+Cookie: SESSION=d8033f30-65e8-40e6-a4d0-8af56e4145cb
+
+
 
 ###
 GET http://localhost:8080/bar?acc=1

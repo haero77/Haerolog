@@ -11,8 +11,8 @@ public class AuthPracticeApi {
 
 	@GetMapping("/foo")
 	public Long foo(UserSession userSession) {
-		log.info(">>> userName={}", userSession.getId());
-		return userSession.getId();
+		log.info(">>> userName={}", userSession.fetchUserId().getId());
+		return userSession.fetchUserId().getId();
 	}
 
 	@GetMapping("/bar")

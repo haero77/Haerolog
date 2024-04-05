@@ -30,8 +30,9 @@ public class LoginApi {
     ) {
         String accessToken = loginService.login(loginRequest);
 
+        // todo 호돌맨: secure, httpOnly sameSite 왜 쓰는지
         ResponseCookie cookie = ResponseCookie.from("SESSION", accessToken)
-                .domain("localhost") // todo 서버 환경에 따른 분리 필요.
+                .domain("localhost") // todo 서버 환경에 따른 분리 필요. (호돌맨: todo 잘 쓰지는 않지만 가끔 쓰긴 한다.)
                 .path("/")
                 .httpOnly(true)
                 .secure(false)

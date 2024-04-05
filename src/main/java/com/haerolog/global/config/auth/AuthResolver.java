@@ -5,6 +5,7 @@ import com.haerolog.domain.auth.repository.SessionRepository;
 import com.haerolog.global.config.auth.data.UserSession;
 import com.haerolog.global.error.exception.UnauthorizedException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -12,6 +13,11 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
+
+@Slf4j
 @RequiredArgsConstructor
 public class AuthResolver implements HandlerMethodArgumentResolver {
 
@@ -31,8 +37,20 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
             ModelAndViewContainer mavContainer,
             NativeWebRequest webRequest,
             WebDataBinderFactory binderFactory
-    ) throws Exception {
-        String accessToken = webRequest.getHeader("Authorization");
+    ) {
+        HttpServletRequest servletRequest = webRequest.getNativeRequest(HttpServletRequest.class);
+        if (Objects.isNull(servletRequest)) {
+            log.error("servletRequest is null.");
+            throw new UnauthorizedException();
+        }
+
+        Cookie[] cookies = servletRequest.getCookies();
+        if (cookies.length == 0) {
+            log.error("No Cookie exists.");
+            throw new UnauthorizedException();
+        }
+
+        String accessToken = cookies[0].getValue();
 
         if (!StringUtils.hasText(accessToken)) {
             throw new UnauthorizedException();
