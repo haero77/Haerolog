@@ -8,6 +8,16 @@ Content-Type: application/json
     "password": "password1"
 }
 
+### JWT 방식 로그인
+POST http://localhost:8081/api/v1/login/jwt
+Content-Type: application/json
+
+{
+    "email": "user1@gmail.com",
+    "password": "password1"
+}
+
+
 ### 인증 페이지 요청
 GET {{host}}/foo
 Content-Type: application/json
