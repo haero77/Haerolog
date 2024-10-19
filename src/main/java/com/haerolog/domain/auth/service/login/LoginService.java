@@ -1,5 +1,6 @@
 package com.haerolog.domain.auth.service.login;
 
+import com.haerolog.domain.auth.model.AccessToken;
 import com.haerolog.domain.auth.model.Session;
 import com.haerolog.domain.auth.service.session.SessionAppend;
 import com.haerolog.domain.auth.service.session.SessionAppender;
@@ -14,17 +15,15 @@ import org.springframework.stereotype.Service;
 public class LoginService {
 
     private final UserReader userReader;
-	private final SessionAppender sessionAppender;
-	private final SessionReader sessionReader;
+    private final SessionAppender sessionAppender;
+    private final SessionReader sessionReader;
 
-	/**
-	 * @return accessToken
-	 */
-	public String login(LoginRequest loginRequest) {
-		User user = userReader.getBy(loginRequest.toUserEmailPassword());
-		Long sessionId = sessionAppender.append(SessionAppend.fromUserId(user.getUserId()));
-		Session session = sessionReader.getById(sessionId);
-		return session.getAccessToken();
-	}
-
+    /**
+     * @return accessToken
+     */
+    public AccessToken login(LoginRequest loginRequest) {
+        User user = userReader.getBy(loginRequest.toUserEmailPassword());
+        final Session newSession = sessionAppender.append(SessionAppend.fromUserId(user.getUserId()));
+        return newSession.fetchAccessToken();
+    }
 }

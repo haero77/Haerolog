@@ -9,17 +9,17 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class PostCommandService {
-
-    private final PostAppend
-
-    public void create(PostCreateRequest request, UserId userId) {
-        PostAppend append = PostAppend.builder()
-                .title(request.getTitle())
-                .content(request.getContent())
-                .userId(userId)
-                .build();
-
-
-    }
+//
+//    private final PostAppend
+//
+//    public void create(PostCreateRequest request, UserId userId) {
+//        PostAppend append = PostAppend.builder()
+//                .title(request.getTitle())
+//                .content(request.getContent())
+//                .userId(userId)
+//                .build();
+//
+//
+//    }
 
 }

@@ -16,11 +16,9 @@ public class SessionAppender {
     private final UuidHolder uuidHolder;
     private final UserReader userReader;
 
-    public Long append(SessionAppend sessionAppend) {
+    public Session append(SessionAppend sessionAppend) {
         User user = userReader.getById(sessionAppend.getUserId());
         Session newSession = Session.of(uuidHolder, user);
-        Session savedSession = sessionRepository.save(newSession);
-        return savedSession.getSessionId();
+        return sessionRepository.save(newSession);
     }
-
 }

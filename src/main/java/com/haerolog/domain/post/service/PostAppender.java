@@ -13,8 +13,8 @@ public class PostAppender {
 
 	private final PostRepository postRepository;
 
-	public void append(PostAppend postAppend) {
-		postRepository.save(postAppend.toPost());
-	}
+//	public void append(PostAppend postAppend) {
+//		postRepository.save(postAppend.toPost());
+//	}
 
 }

@@ -14,10 +14,10 @@ public class PostCommandApi {
 
     private final PostCommandService postCommandService;
 
-    @PostMapping("/api/v1/posts")
-    public ApiResponse<Void> create(@RequestBody PostCreateRequest request, UserSession userSession) {
-        postCommandService.create(request, userSession.fetchUserId());
-    }
+//    @PostMapping("/api/v1/posts")
+//    public ApiResponse<Void> create(@RequestBody PostCreateRequest request, UserSession userSession) {
+//        postCommandService.create(request, userSession.fetchUserId());
+//    }
 
 //	@PostMapping
 //	public ResponseEntity<Void> append(@RequestBody @Valid PostAppend request) {

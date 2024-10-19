@@ -45,4 +45,7 @@ public class Session extends BaseTimeEntity {
         return this.user.getUserId();
     }
 
+    public AccessToken fetchAccessToken() {
+        return new AccessToken(getAccessToken());
+    }
 }

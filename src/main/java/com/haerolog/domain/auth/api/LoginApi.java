@@ -1,5 +1,6 @@
 package com.haerolog.domain.auth.api;
 
+import com.haerolog.domain.auth.model.AccessToken;
 import com.haerolog.domain.auth.service.login.LoginRequest;
 import com.haerolog.domain.auth.service.login.LoginService;
 import io.jsonwebtoken.Jwts;
@@ -30,10 +31,10 @@ public class LoginApi {
     public ResponseEntity<Object> login(
             @RequestBody @Valid LoginRequest loginRequest
     ) {
-        String accessToken = loginService.login(loginRequest);
+        final AccessToken accessToken = loginService.login(loginRequest);
 
         // todo 호돌맨: secure, httpOnly sameSite 왜 쓰는지
-        ResponseCookie cookie = ResponseCookie.from("SESSION", accessToken)
+        ResponseCookie cookie = ResponseCookie.from("SESSION", accessToken.getTokenValue())
                 .domain("localhost") // todo 서버 환경에 따른 분리 필요. (호돌맨: todo 잘 쓰지는 않지만 가끔 쓰긴 한다.)
                 .path("/")
                 .httpOnly(true)
@@ -51,15 +52,18 @@ public class LoginApi {
 
     @PostMapping("/api/v1/login/jwt")
     public ResponseEntity<Object> loginJwt(
+            @RequestBody @Valid LoginRequest loginRequest
     ) {
+        final AccessToken accessToken = loginService.login(loginRequest);
+
         SecretKey secretKey = Jwts.SIG.HS256.key().build();
 
-        String jws = Jwts.builder() // Jwts(=JWT Signature)
+        String jwtLiteral = Jwts.builder() // Jwts(=JWT Signature)
                 .subject("Joe")
                 .signWith(secretKey)
                 .compact();
 
-        ResponseCookie responseCookie = ResponseCookie.from("accessToken", jws)
+        ResponseCookie responseCookie = ResponseCookie.from("accessToken", jwtLiteral)
                 .domain("localhost") // todo 서버 환경에 따른 분리 필요.
                 .path("/")
                 .httpOnly(true)
@@ -72,5 +76,4 @@ public class LoginApi {
                 .header(HttpHeaders.SET_COOKIE, responseCookie.toString())
                 .build();
     }
-
 }
